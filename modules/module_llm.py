@@ -3,21 +3,30 @@ module_llm.py
 
 LLM module for TalkMate AI.
 Provides integration with OpenAI-compatible LLM backends.
+Enhanced with stress detection and resource recommendation.
 """
 import requests
 from modules.module_prompt import build_prompt
+from modules.module_stress_detector import SimpleStressDetector
+from modules.module_resources import ResourceManager
 
 class LLMManager:
-    """Manages LLM interactions."""
+    """Manages LLM interactions with stress detection support."""
     
     def __init__(self, config, character_manager, memory_manager):
         self.config = config
         self.character_manager = character_manager
         self.memory_manager = memory_manager
+        
+        # Initialize stress detection and resources
+        self.stress_detector = SimpleStressDetector()
+        self.resource_manager = ResourceManager()
+        print("✓ Stress detection and resources initialized")
 
     def get_completion(self, user_prompt):
         """
         Generate a completion using the configured LLM backend.
+        Now includes stress detection and resource recommendations.
         
         Parameters:
         - user_prompt (str): The user's input prompt.
@@ -25,8 +34,25 @@ class LLMManager:
         Returns:
         - str: The generated completion.
         """
+        # Step 1: Detect stress in user's message
+        stress_data = self.stress_detector.detect(user_prompt)
+        
+        # Step 2: If crisis detected, return immediate resources
+        if stress_data.get('is_crisis'):
+            crisis_response = self.resource_manager.get_crisis_response()
+            # Still log this interaction
+            self.memory_manager.write_longterm_memory(user_prompt, crisis_response, stress_data)
+            return crisis_response
+        
+        # Step 3: Get appropriate resources if stress detected
+        resources = None
+        if stress_data.get('stress_detected') and stress_data.get('stress_level', 0) > 3:
+            resources = self.resource_manager.get_resources(stress_data)
+        
+        # Step 4: Build prompt with stress context
         prompt = build_prompt(
-            user_prompt, self.character_manager, self.memory_manager, self.config
+            user_prompt, self.character_manager, self.memory_manager, self.config,
+            stress_context=stress_data
         )
         
         headers = {
@@ -42,8 +68,14 @@ class LLMManager:
             response.raise_for_status()
             bot_reply = self._extract_text(response.json(), llm_backend)
             
-            # Save to memory
-            self.memory_manager.write_longterm_memory(user_prompt, bot_reply)
+            # Step 5: Append resources to response if available
+            if resources:
+                resource_text = self.resource_manager.format_resources_for_display(resources)
+                if resource_text:
+                    bot_reply += f"\n{resource_text}"
+            
+            # Step 6: Save to memory with stress tracking
+            self.memory_manager.write_longterm_memory(user_prompt, bot_reply, stress_data)
             
             return bot_reply
         

@@ -5,15 +5,17 @@ Utility module for building prompts for LLM backends.
 """
 from datetime import datetime
 
-def build_prompt(user_prompt, character_manager, memory_manager, config):
+def build_prompt(user_prompt, character_manager, memory_manager, config, stress_context=None):
     """
     Build a dynamically optimized prompt for the LLM backend.
+    Now includes stress context for empathetic responses.
     
     Parameters:
     - user_prompt (str): The user's input prompt.
     - character_manager: The CharacterManager instance.
     - memory_manager: The MemoryManager instance.
     - config (dict): Configuration dictionary.
+    - stress_context (dict, optional): Stress detection results from stress detector.
     
     Returns:
     - str: The formatted prompt for the LLM backend.
@@ -42,6 +44,26 @@ def build_prompt(user_prompt, character_manager, memory_manager, config):
         f"### Character Details:\n---\n{character_manager.character_card}\n---\n\n"
         f"### {char_name} Settings:\n{persona_traits}\n---\n\n"
     )
+    
+    # NEW: Add stress context if detected
+    if stress_context and stress_context.get('stress_detected'):
+        stress_level = stress_context.get('stress_level', 0)
+        category = stress_context.get('category', 'unknown')
+        is_crisis = stress_context.get('is_crisis', False)
+        
+        base_prompt += f"### ⚠ User Stress Context:\n---\n"
+        base_prompt += f"Stress Level: {stress_level}/10\n"
+        base_prompt += f"Category: {category}\n"
+        
+        if is_crisis:
+            base_prompt += "🚨 CRISIS DETECTED - Immediate support needed\n"
+        elif stress_level >= 7:
+            base_prompt += "High stress detected - Be extra gentle and supportive\n"
+        elif stress_level >= 4:
+            base_prompt += "Moderate stress detected - Show understanding and offer help\n"
+        
+        base_prompt += "Respond with empathy, validate their feelings, and be supportive.\n"
+        base_prompt += "---\n\n"
 
     # Add relevant memories
     if past_memory:

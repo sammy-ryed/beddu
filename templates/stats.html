@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ char_name }} - Progress Stats</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>{{ char_name }} - Your Progress</h1>
+            <a href="/" class="stats-link">💬 Back to Chat</a>
+        </header>
+
+        <div class="stats-container">
+            <div id="stats-loading">Loading your stats...</div>
+            <div id="stats-content" style="display: none;">
+                
+                <div class="stat-card">
+                    <h2>Overall Activity</h2>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Sessions:</span>
+                        <span class="stat-value" id="total-sessions">-</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Sessions with Stress Detected:</span>
+                        <span class="stat-value" id="sessions-with-stress">-</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Stress Detection Rate:</span>
+                        <span class="stat-value" id="stress-percentage">-%</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <h2>Stress Levels</h2>
+                    <div class="stat-item">
+                        <span class="stat-label">Average Stress Level (All Time):</span>
+                        <span class="stat-value" id="avg-stress">-</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Recent Average (Last 7 Sessions):</span>
+                        <span class="stat-value" id="recent-avg">-</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Previous Average (7 Before That):</span>
+                        <span class="stat-value" id="previous-avg">-</span>
+                    </div>
+                </div>
+
+                <div class="stat-card improvement-card">
+                    <h2>Your Progress 📈</h2>
+                    <div class="improvement-big" id="improvement-display">
+                        <span id="improvement-value">-</span>
+                    </div>
+                    <p id="improvement-message" class="improvement-message"></p>
+                </div>
+
+                <div class="stat-card">
+                    <h2>Pattern Analysis</h2>
+                    <div class="stat-item">
+                        <span class="stat-label">Most Common Stress Category:</span>
+                        <span class="stat-value" id="common-category">-</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Crisis Situations Detected:</span>
+                        <span class="stat-value crisis-count" id="crisis-count">-</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load stats from API
+        fetch('/stats')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('stats-loading').style.display = 'none';
+                document.getElementById('stats-content').style.display = 'block';
+                
+                // Populate stats
+                document.getElementById('total-sessions').textContent = data.total_sessions;
+                document.getElementById('sessions-with-stress').textContent = data.sessions_with_stress;
+                document.getElementById('stress-percentage').textContent = data.stress_percentage + '%';
+                document.getElementById('avg-stress').textContent = data.average_stress_level + '/10';
+                document.getElementById('recent-avg').textContent = data.recent_avg_stress + '/10';
+                document.getElementById('previous-avg').textContent = data.previous_avg_stress + '/10';
+                document.getElementById('common-category').textContent = data.most_common_category;
+                document.getElementById('crisis-count').textContent = data.crisis_count;
+                
+                // Show improvement
+                const improvement = data.improvement_percentage;
+                const improvementDisplay = document.getElementById('improvement-value');
+                const improvementMessage = document.getElementById('improvement-message');
+                
+                if (improvement > 0) {
+                    improvementDisplay.textContent = `+${improvement}% Improvement`;
+                    improvementDisplay.className = 'positive';
+                    improvementMessage.textContent = '🎉 Your stress levels are decreasing! Keep up the great work!';
+                } else if (improvement < 0) {
+                    improvementDisplay.textContent = `${improvement}% Change`;
+                    improvementDisplay.className = 'negative';
+                    improvementMessage.textContent = '💙 Your stress levels are higher recently. Remember, it\'s okay to have tough days. I\'m here for you.';
+                } else {
+                    improvementDisplay.textContent = 'No Change Yet';
+                    improvementDisplay.className = 'neutral';
+                    improvementMessage.textContent = '📊 Keep talking with me to track your progress over time.';
+                }
+            })
+            .catch(error => {
+                document.getElementById('stats-loading').textContent = 'Error loading stats: ' + error.message;
+            });
+    </script>
+</body>
+</html>

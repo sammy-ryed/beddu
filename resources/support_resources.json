@@ -1,0 +1,186 @@
+{
+  "crisis": [
+    {
+      "name": "988 Suicide & Crisis Lifeline",
+      "contact": "Call or Text 988",
+      "available": "24/7",
+      "description": "Free, confidential crisis support for people in suicidal crisis or emotional distress",
+      "website": "https://988lifeline.org"
+    },
+    {
+      "name": "Crisis Text Line",
+      "contact": "Text HOME to 741741",
+      "available": "24/7",
+      "description": "Free 24/7 crisis support via text message",
+      "website": "https://www.crisistextline.org"
+    },
+    {
+      "name": "Emergency Services",
+      "contact": "Call 911",
+      "available": "24/7",
+      "description": "For immediate life-threatening emergencies"
+    }
+  ],
+  
+  "mental_health": [
+    {
+      "name": "BetterHelp",
+      "type": "Online Therapy",
+      "cost": "$60-90/week",
+      "description": "Online therapy with licensed therapists via messaging, video, or phone",
+      "website": "https://www.betterhelp.com"
+    },
+    {
+      "name": "Talkspace",
+      "type": "Online Therapy",
+      "cost": "$69-99/week",
+      "description": "Text and video therapy with licensed therapists",
+      "website": "https://www.talkspace.com"
+    },
+    {
+      "name": "Open Path Collective",
+      "type": "Affordable Therapy",
+      "cost": "$30-80/session",
+      "description": "Network of therapists offering reduced-fee sessions",
+      "website": "https://openpathcollective.org"
+    },
+    {
+      "name": "NAMI Support Groups",
+      "type": "Peer Support",
+      "cost": "Free",
+      "description": "Free support groups for people with mental health conditions and their families",
+      "contact": "Call NAMI Helpline: 800-950-6264",
+      "website": "https://www.nami.org/Support-Education/Support-Groups"
+    },
+    {
+      "name": "SAMHSA National Helpline",
+      "type": "Information & Referral",
+      "contact": "Call 800-662-4357",
+      "available": "24/7",
+      "cost": "Free",
+      "description": "Treatment referral and information service for mental health and substance use disorders",
+      "website": "https://www.samhsa.gov/find-help/national-helpline"
+    },
+    {
+      "name": "Psychology Today Therapist Finder",
+      "type": "Directory",
+      "cost": "Varies",
+      "description": "Find therapists in your area by specialty, insurance, and approach",
+      "website": "https://www.psychologytoday.com/us/therapists"
+    }
+  ],
+  
+  "financial_help": [
+    {
+      "name": "National Foundation for Credit Counseling (NFCC)",
+      "type": "Credit Counseling",
+      "contact": "Call 800-388-2227",
+      "cost": "Free or low-cost",
+      "description": "Nonprofit credit counseling, debt management, and financial education",
+      "website": "https://www.nfcc.org"
+    },
+    {
+      "name": "211 Helpline",
+      "type": "Community Resources",
+      "contact": "Dial 211",
+      "available": "24/7",
+      "cost": "Free",
+      "description": "Find local help with rent, food, utilities, and other essential needs"
+    },
+    {
+      "name": "Feeding America",
+      "type": "Food Assistance",
+      "cost": "Free",
+      "description": "Locate food banks and pantries near you",
+      "website": "https://www.feedingamerica.org/find-your-local-foodbank"
+    },
+    {
+      "name": "Benefits.gov",
+      "type": "Government Benefits",
+      "cost": "Free",
+      "description": "Find government assistance programs you may qualify for (SNAP, housing, medical)",
+      "website": "https://www.benefits.gov"
+    },
+    {
+      "name": "National Debt Relief",
+      "type": "Debt Settlement",
+      "cost": "Fee-based",
+      "description": "Negotiate with creditors to reduce debt amounts",
+      "website": "https://www.nationaldebtrelief.com"
+    },
+    {
+      "name": "CareerOneStop",
+      "type": "Job Search & Training",
+      "cost": "Free",
+      "description": "Job search tools, career resources, and training programs",
+      "website": "https://www.careeronestop.org"
+    }
+  ],
+  
+  "coping_strategies": [
+    {
+      "name": "4-7-8 Breathing Exercise",
+      "category": "Breathing",
+      "duration": "2-5 minutes",
+      "best_for": ["anxiety", "panic", "stress", "sleep"],
+      "instructions": "1. Breathe in through your nose for 4 seconds\n2. Hold your breath for 7 seconds\n3. Exhale slowly through your mouth for 8 seconds\n4. Repeat 3-4 times",
+      "why_it_works": "This technique activates your parasympathetic nervous system, which helps calm your body's stress response"
+    },
+    {
+      "name": "5-4-3-2-1 Grounding Technique",
+      "category": "Grounding",
+      "duration": "3-5 minutes",
+      "best_for": ["anxiety", "panic", "overwhelm", "dissociation"],
+      "instructions": "Name out loud:\n- 5 things you can see\n- 4 things you can touch\n- 3 things you can hear\n- 2 things you can smell\n- 1 thing you can taste",
+      "why_it_works": "Grounding brings you back to the present moment and interrupts anxious thoughts"
+    },
+    {
+      "name": "Box Breathing",
+      "category": "Breathing",
+      "duration": "2-3 minutes",
+      "best_for": ["stress", "anxiety", "focus"],
+      "instructions": "1. Breathe in for 4 counts\n2. Hold for 4 counts\n3. Breathe out for 4 counts\n4. Hold for 4 counts\n5. Repeat 4-5 times",
+      "why_it_works": "Used by Navy SEALs to stay calm under pressure. Regulates breathing and heart rate"
+    },
+    {
+      "name": "Progressive Muscle Relaxation",
+      "category": "Physical",
+      "duration": "10-15 minutes",
+      "best_for": ["tension", "stress", "sleep", "physical anxiety"],
+      "instructions": "1. Tense your feet muscles for 5 seconds, then release\n2. Move up to calves, thighs, stomach, chest, arms, face\n3. Focus on the difference between tension and relaxation",
+      "why_it_works": "Releases physical tension that accumulates from stress and anxiety"
+    },
+    {
+      "name": "Thought Challenging",
+      "category": "Cognitive",
+      "duration": "5-10 minutes",
+      "best_for": ["anxiety", "depression", "worry"],
+      "instructions": "When having a negative thought, ask:\n1. What's the evidence for this thought?\n2. What's the evidence against it?\n3. What would I tell a friend thinking this?\n4. What's a more balanced way to see this?",
+      "why_it_works": "Cognitive restructuring helps identify and change unhelpful thinking patterns"
+    },
+    {
+      "name": "TIPP Technique",
+      "category": "Emotion Regulation",
+      "duration": "Immediate",
+      "best_for": ["intense emotions", "crisis", "panic"],
+      "instructions": "Temperature: Splash cold water on your face\nIntense exercise: Do jumping jacks for 1 minute\nPaced breathing: Slow your breathing\nProgressive relaxation: Tense and release muscles",
+      "why_it_works": "Quickly changes your body's physiological state to reduce emotional intensity"
+    },
+    {
+      "name": "Worry Time Scheduling",
+      "category": "Behavioral",
+      "duration": "15 minutes daily",
+      "best_for": ["chronic worry", "rumination"],
+      "instructions": "1. Set aside 15 minutes each day as 'worry time'\n2. When worries come up during the day, write them down and save for worry time\n3. During worry time, review and problem-solve your worries\n4. When time is up, move on",
+      "why_it_works": "Gives you control over worrying instead of letting it control you"
+    },
+    {
+      "name": "Journaling for Mental Health",
+      "category": "Expressive",
+      "duration": "10-20 minutes",
+      "best_for": ["processing emotions", "stress", "depression"],
+      "instructions": "Write freely about:\n- What you're feeling and why\n- Things you're grateful for\n- Problems you're facing and possible solutions\n- Accomplishments, even small ones",
+      "why_it_works": "Writing helps process emotions and gain perspective on problems"
+    }
+  ]
+}

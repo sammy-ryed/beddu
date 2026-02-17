@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ char_name }} - Mental Health Companion</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>{{ char_name }}</h1>
+            <p class="subtitle">Your Mental Health & Financial Stress Support Companion</p>
+            <a href="/stats-page" class="stats-link">📊 View Progress</a>
+        </header>
+
+        <div class="chat-container">
+            <div id="chat-messages" class="chat-messages">
+                <div class="message bot-message">
+                    <strong>{{ char_name }}:</strong> {{ char_greeting }}
+                </div>
+            </div>
+
+            <div class="input-container">
+                <input type="text" 
+                       id="user-input" 
+                       placeholder="Type your message here..." 
+                       autocomplete="off">
+                <button id="send-button">Send</button>
+            </div>
+        </div>
+
+        <div class="disclaimer">
+            <small>⚠️ This is a support companion, not a replacement for professional help. In crisis, call 988 (Suicide & Crisis Lifeline) immediately.</small>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
