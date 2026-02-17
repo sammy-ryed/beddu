@@ -150,6 +150,21 @@ class ResourceManager:
         
         return message
     
+    def get_crisis_header(self) -> str:
+        """
+        Get brief crisis header to prepend to AI response.
+        
+        Returns:
+            str: Crisis hotline information
+        """
+        crisis_resources = self.resources.get('crisis', [])
+        message = "🚨 URGENT - Crisis Resources:\n"
+        
+        for resource in crisis_resources[:2]:  # Show top 2
+            message += f"• {resource['name']}: {resource['contact']}\n"
+        
+        return message.rstrip()
+    
     def format_resources_for_display(self, resources: Dict) -> str:
         """
         Format resources as readable text for user.

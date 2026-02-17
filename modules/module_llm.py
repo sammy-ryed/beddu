@@ -37,17 +37,13 @@ class LLMManager:
         # Step 1: Detect stress in user's message
         stress_data = self.stress_detector.detect(user_prompt)
         
-        # Step 2: If crisis detected, return immediate resources
-        if stress_data.get('is_crisis'):
-            crisis_response = self.resource_manager.get_crisis_response()
-            # Still log this interaction
-            self.memory_manager.write_longterm_memory(user_prompt, crisis_response, stress_data)
-            return crisis_response
-        
-        # Step 3: Get appropriate resources if stress detected
+        # Step 2: Get appropriate resources if stress or crisis detected
         resources = None
         if stress_data.get('stress_detected') and stress_data.get('stress_level', 0) > 3:
             resources = self.resource_manager.get_resources(stress_data)
+        
+        # For crisis, we'll still let AI respond empathetically, but flag it
+        is_crisis = stress_data.get('is_crisis', False)
         
         # Step 4: Build prompt with stress context
         prompt = build_prompt(
@@ -72,7 +68,12 @@ class LLMManager:
             if resources:
                 resource_text = self.resource_manager.format_resources_for_display(resources)
                 if resource_text:
-                    bot_reply += f"\n{resource_text}"
+                    bot_reply += f"\n\n{resource_text}"
+            
+            # Step 5b: For crisis, always add urgent resources at the top
+            if is_crisis:
+                crisis_header = self.resource_manager.get_crisis_header()
+                bot_reply = f"{crisis_header}\n\n{bot_reply}"
             
             # Step 6: Save to memory with stress tracking
             self.memory_manager.write_longterm_memory(user_prompt, bot_reply, stress_data)

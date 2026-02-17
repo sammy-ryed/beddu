@@ -56,13 +56,20 @@ def build_prompt(user_prompt, character_manager, memory_manager, config, stress_
         base_prompt += f"Category: {category}\n"
         
         if is_crisis:
-            base_prompt += "🚨 CRISIS DETECTED - Immediate support needed\n"
+            base_prompt += "🚨 CRISIS DETECTED\n"
+            base_prompt += "YOUR RESPONSE: Keep it SHORT (2-3 sentences). Express immediate concern and empathy. Crisis resources will be shown above your message.\n"
         elif stress_level >= 7:
-            base_prompt += "High stress detected - Be extra gentle and supportive\n"
+            base_prompt += "High stress - Be extra gentle. Keep response brief (2-4 sentences max).\n"
         elif stress_level >= 4:
-            base_prompt += "Moderate stress detected - Show understanding and offer help\n"
+            base_prompt += "Moderate stress - Show understanding. Keep it concise (2-4 sentences).\n"
         
-        base_prompt += "Respond with empathy, validate their feelings, and be supportive.\n"
+        base_prompt += "Focus: Validate feelings → offer one supportive thought → be there for them.\n"
+        base_prompt += "---\n\n"
+    else:
+        # Even for casual conversation, keep it brief
+        base_prompt += "### Response Guidelines:\n---\n"
+        base_prompt += "Keep responses SHORT and conversational (2-4 sentences max).\n"
+        base_prompt += "Be warm and natural, like texting a friend.\n"
         base_prompt += "---\n\n"
 
     # Add relevant memories
