@@ -3,30 +3,32 @@ module_llm.py
 
 LLM module for TalkMate AI.
 Provides integration with OpenAI-compatible LLM backends.
-Enhanced with stress detection and resource recommendation.
+Enhanced with stress detection, financial analysis, and resource recommendation.
 """
 import requests
 from modules.module_prompt import build_prompt
 from modules.module_stress_detector import SimpleStressDetector
+from modules.module_financial import FinancialStressDetector
 from modules.module_resources import ResourceManager
 
 class LLMManager:
-    """Manages LLM interactions with stress detection support."""
+    """Manages LLM interactions with stress detection and financial analysis support."""
     
     def __init__(self, config, character_manager, memory_manager):
         self.config = config
         self.character_manager = character_manager
         self.memory_manager = memory_manager
         
-        # Initialize stress detection and resources
+        # Initialize stress detection and financial analysis
         self.stress_detector = SimpleStressDetector()
+        self.financial_detector = FinancialStressDetector()
         self.resource_manager = ResourceManager()
-        print("✓ Stress detection and resources initialized")
+        print("✓ Stress detection, financial analysis, and resources initialized")
 
     def get_completion(self, user_prompt):
         """
         Generate a completion using the configured LLM backend.
-        Now includes stress detection and resource recommendations.
+        Now includes stress detection, financial analysis, and resource recommendations.
         
         Parameters:
         - user_prompt (str): The user's input prompt.
@@ -37,18 +39,32 @@ class LLMManager:
         # Step 1: Detect stress in user's message
         stress_data = self.stress_detector.detect(user_prompt)
         
-        # Step 2: Get appropriate resources if stress or crisis detected
+        # Step 2: Check for financial stress specifically
+        financial_data = self.financial_detector.detect(user_prompt)
+        
+        # Step 3: Get appropriate resources if stress or crisis detected
         resources = None
         if stress_data.get('stress_detected') and stress_data.get('stress_level', 0) > 3:
-            resources = self.resource_manager.get_resources(stress_data)
+            # Pass both stress and financial data to resource manager
+            resources = self.resource_manager.get_resources(stress_data, financial_data)
+        elif financial_data.get('has_financial_stress'):
+            # Financial stress detected even if general stress wasn't
+            resources = self.resource_manager.get_resources(
+                {'stress_detected': True, 'stress_level': financial_data.get('stress_level', 5)},
+                financial_data
+            )
         
         # For crisis, we'll still let AI respond empathetically, but flag it
         is_crisis = stress_data.get('is_crisis', False)
         
-        # Step 4: Build prompt with stress context
+        # Step 4: Build prompt with stress context (includes financial if detected)
+        combined_context = stress_data.copy()
+        if financial_data and financial_data.get('has_financial_stress'):
+            combined_context['financial_stress'] = financial_data
+        
         prompt = build_prompt(
             user_prompt, self.character_manager, self.memory_manager, self.config,
-            stress_context=stress_data
+            stress_context=combined_context
         )
         
         headers = {
@@ -76,7 +92,11 @@ class LLMManager:
                 bot_reply = f"{crisis_header}\n\n{bot_reply}"
             
             # Step 6: Save to memory with stress tracking
-            self.memory_manager.write_longterm_memory(user_prompt, bot_reply, stress_data)
+            memory_context = stress_data.copy()
+            if financial_data and financial_data.get('has_financial_stress'):
+                memory_context['financial_stress'] = financial_data
+            
+            self.memory_manager.write_longterm_memory(user_prompt, bot_reply, memory_context)
             
             return bot_reply
         

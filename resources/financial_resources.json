@@ -1,0 +1,216 @@
+{
+  "credit_counseling": [
+    {
+      "name": "National Foundation for Credit Counseling (NFCC)",
+      "type": "Nonprofit Credit Counseling",
+      "contact": "Call 800-388-2227",
+      "cost": "Free or low-cost (typically under $50)",
+      "description": "Nonprofit credit counseling, debt management plans, and financial education",
+      "website": "https://www.nfcc.org",
+      "services": ["Credit counseling", "Debt management plans", "Bankruptcy counseling", "Housing counseling"],
+      "availability": "Nationwide"
+    },
+    {
+      "name": "Financial Counseling Association of America (FCAA)",
+      "type": "Nonprofit Credit Counseling",
+      "contact": "Call 800-450-1794",
+      "cost": "Free consultation",
+      "description": "Nonprofit financial counseling and debt management",
+      "website": "https://www.fcaa.org",
+      "services": ["Debt counseling", "Budget planning", "Credit education"]
+    }
+  ],
+  
+  "emergency_assistance": [
+    {
+      "name": "211 Helpline",
+      "type": "Community Resources",
+      "contact": "Dial 211 or visit 211.org",
+      "available": "24/7",
+      "cost": "Free",
+      "description": "Find local help with rent, food, utilities, and other essential needs",
+      "services": ["Emergency rent assistance", "Utility bill help", "Food assistance", "Job training"],
+      "availability": "Nationwide USA"
+    },
+    {
+      "name": "Modest Needs",
+      "type": "Emergency Financial Assistance",
+      "cost": "Free to apply",
+      "description": "Short-term financial grants for people facing temporary financial crisis",
+      "website": "https://www.modestneeds.org",
+      "services": ["One-time emergency grants", "Bills", "Emergency expenses"],
+      "note": "Must be working but still struggling"
+    },
+    {
+      "name": "Benefits.gov",
+      "type": "Government Benefits Finder",
+      "cost": "Free",
+      "description": "Find government assistance programs you may qualify for",
+      "website": "https://www.benefits.gov",
+      "programs": ["SNAP (food stamps)", "Housing assistance", "Medical assistance", "Child care", "Unemployment"]
+    },
+    {
+      "name": "Emergency Rental Assistance",
+      "type": "Rental Help",
+      "cost": "Free",
+      "description": "Federal emergency rental assistance program",
+      "website": "https://home.treasury.gov/policy-issues/coronavirus/assistance-for-state-local-and-tribal-governments/emergency-rental-assistance-program",
+      "services": ["Back rent", "Utility bills", "Future rent payments"]
+    }
+  ],
+  
+  "food_assistance": [
+    {
+      "name": "Feeding America",
+      "type": "Food Banks Network",
+      "cost": "Free",
+      "description": "Locate food banks and pantries near you",
+      "website": "https://www.feedingamerica.org/find-your-local-foodbank",
+      "services": ["Food pantries", "Soup kitchens", "Mobile food distribution"]
+    },
+    {
+      "name": "SNAP (Food Stamps)",
+      "type": "Government Program",
+      "cost": "Free",
+      "description": "Monthly benefits to purchase groceries",
+      "website": "https://www.fns.usda.gov/snap/supplemental-nutrition-assistance-program",
+      "apply": "Contact local SNAP office or apply online"
+    }
+  ],
+  
+  "debt_management": [
+    {
+      "name": "National Debt Relief",
+      "type": "Debt Settlement",
+      "cost": "Fee-based (15-25% of enrolled debt)",
+      "description": "Negotiate with creditors to reduce debt amounts",
+      "website": "https://www.nationaldebtrelief.com",
+      "services": ["Debt settlement", "Debt negotiation"],
+      "note": "Only for those seriously behind on payments"
+    },
+    {
+      "name": "InCharge Debt Solutions",
+      "type": "Nonprofit Debt Management",
+      "cost": "Low monthly fee (~$35-50)",
+      "description": "Debt management plans and credit counseling",
+      "website": "https://www.incharge.org",
+      "services": ["Debt management plans", "Credit counseling", "Bankruptcy counseling"]
+    }
+  ],
+  
+  "employment_resources": [
+    {
+      "name": "CareerOneStop",
+      "type": "Employment Services",
+      "cost": "Free",
+      "description": "Job search tools, career resources, and training programs sponsored by US Dept of Labor",
+      "website": "https://www.careeronestop.org",
+      "services": ["Job search", "Resume builder", "Training finder", "Unemployment benefits info"]
+    },
+    {
+      "name": "Goodwill Job Connection",
+      "type": "Job Training & Placement",
+      "cost": "Free",
+      "description": "Free job training and placement services",
+      "website": "https://www.goodwill.org/jobs-training/",
+      "services": ["Job training", "Resume help", "Interview prep"]
+    },
+    {
+      "name": "SkillUp Coalition",
+      "type": "Free Online Training",
+      "cost": "Free",
+      "description": "Free online courses for career skills",
+      "website": "https://www.skilluponline.org",
+      "services": ["Tech skills", "Business skills", "Certifications"]
+    }
+  ],
+  
+  "housing_assistance": [
+    {
+      "name": "HUD Housing Counseling",
+      "type": "Housing Counseling",
+      "contact": "Call 800-569-4287",
+      "cost": "Free",
+      "description": "Find HUD-approved housing counselor for foreclosure prevention, rental help",
+      "website": "https://www.hud.gov/findacounselor",
+      "services": ["Foreclosure prevention", "Rental assistance", "Homelessness prevention"]
+    },
+    {
+      "name": "Salvation Army Rental Assistance",
+      "type": "Emergency Housing Help",
+      "cost": "Free",
+      "description": "Emergency financial assistance for rent and utilities",
+      "website": "https://www.salvationarmyusa.org/usn/provide-shelter/",
+      "services": ["Emergency rent help", "Utility assistance", "Shelter"]
+    }
+  ],
+  
+  "utility_assistance": [
+    {
+      "name": "LIHEAP (Low Income Home Energy Assistance)",
+      "type": "Government Program",
+      "cost": "Free",
+      "description": "Help paying heating and cooling bills",
+      "website": "https://www.acf.hhs.gov/ocs/liheap",
+      "apply": "Contact local LIHEAP office"
+    },
+    {
+      "name": "Dollar Energy Fund",
+      "type": "Utility Bill Assistance",
+      "cost": "Free",
+      "description": "Grants to help pay utility bills",
+      "website": "https://www.dollarenergy.org",
+      "serves": "Select states"
+    }
+  ],
+  
+  "financial_education": [
+    {
+      "name": "MyMoney.gov",
+      "type": "Financial Education",
+      "cost": "Free",
+      "description": "Government resource for financial education",
+      "website": "https://www.mymoney.gov",
+      "topics": ["Budgeting", "Credit", "Saving", "Investing", "Taxes"]
+    },
+    {
+      "name": "Khan Academy Personal Finance",
+      "type": "Free Courses",
+      "cost": "Free",
+      "description": "Free courses on personal finance topics",
+      "website": "https://www.khanacademy.org/college-careers-more/personal-finance",
+      "topics": ["Budgeting", "Interest", "Credit", "Taxes"]
+    }
+  ],
+  
+  "bankruptcy_resources": [
+    {
+      "name": "Legal Aid Bankruptcy Help",
+      "type": "Free Legal Assistance",
+      "cost": "Free",
+      "description": "Free or low-cost legal help for bankruptcy",
+      "website": "https://www.lsc.gov/find-legal-aid",
+      "services": ["Bankruptcy consultation", "Filing assistance"]
+    },
+    {
+      "name": "Upsolve",
+      "type": "Free Bankruptcy Filing",
+      "cost": "Free",
+      "description": "Free tool to file Chapter 7 bankruptcy without a lawyer",
+      "website": "https://upsolve.org",
+      "services": ["Chapter 7 bankruptcy filing help"],
+      "note": "For those with simple cases and income under certain thresholds"
+    }
+  ],
+  
+  "financial_therapy": [
+    {
+      "name": "Financial Therapy Association",
+      "type": "Financial Therapist Directory",
+      "cost": "Varies",
+      "description": "Find therapists who specialize in financial stress and money issues",
+      "website": "https://www.financialtherapyassociation.org",
+      "services": ["Money anxiety", "Financial stress counseling", "Relationship money issues"]
+    }
+  ]
+}

@@ -2,6 +2,39 @@
 
 An AI-powered mental health companion designed for the hackathon challenge. Beedu provides empathetic support for mental health and financial stress, detects stress patterns, offers coping resources, and tracks improvement over time.
 
+## ✨ NEW: Advanced Features (v2.0)
+
+**Three Major Enhancements:**
+
+1. **🗂️ Multiple Specialized JSON Databases** (~1000 lines)
+   - Crisis resources (6 hotlines + online resources)
+   - Mental health resources (20+ therapy/support options)
+   - Financial resources (30+ assistance programs)
+   - Coping strategies (25+ evidence-based techniques)
+
+2. **💰 Dedicated Financial Module** (380 lines)
+   - 93 financial stress keywords across 5 categories
+   - Severity weighting (bankruptcy=10, eviction=10, etc.)
+   - Urgency assessment (immediate/urgent/soon)
+   - Smart resource matching
+
+3. **🧠 Sophisticated Pattern Recognition** (500 lines)
+   - Multi-word phrase detection ("can't take it anymore")
+   - Negation filtering ("I'm not depressed" → filtered)
+   - Intensity modifiers ("really anxious" → 1.3x multiplier)
+   - Conversation history tracking & trend analysis
+   - 9-step detection process
+
+**UX Enhancement:**
+
+4. **💡 Collapsible Coping Tips** (v2.1)
+   - Tips hidden behind "Want a tip to help with stress?" buttons
+   - Click to reveal full instructions
+   - Cleaner interface, mobile-friendly
+   - [See Demo](COLLAPSIBLE_TIPS.md)
+
+📖 **[See Full Documentation](ADVANCED_FEATURES.md)** for detailed technical specs
+
 ## 🎯 Hackathon Problem Statement
 
 **Challenge**: Create a Holistic Mental Health & Financial Stress Support Companion

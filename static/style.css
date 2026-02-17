@@ -109,6 +109,62 @@ header h1 {
     color: #667eea;
 }
 
+/* Collapsible Coping Tips */
+.coping-tip-container {
+    margin: 10px 0;
+    border-left: 3px solid #667eea;
+    padding-left: 10px;
+}
+
+.coping-tip-button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95em;
+    font-weight: 500;
+    transition: all 0.3s;
+    width: 100%;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.coping-tip-button:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.coping-tip-button.expanded {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    border-radius: 8px 8px 0 0;
+}
+
+.coping-tip-content {
+    background: #f8f9ff;
+    padding: 15px;
+    border-radius: 0 0 8px 8px;
+    margin-top: -5px;
+    border: 2px solid #667eea;
+    border-top: none;
+    line-height: 1.6;
+    animation: slideDown 0.3s;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        max-height: 0;
+    }
+    to {
+        opacity: 1;
+        max-height: 500px;
+    }
+}
+
 /* Input Container */
 .input-container {
     display: flex;

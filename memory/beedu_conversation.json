@@ -134,5 +134,86 @@
     "stress_level": 0,
     "stress_category": null,
     "is_crisis": false
+  },
+  {
+    "timestamp": "2026-02-17 14:49:34",
+    "user_input": "hello",
+    "bot_response": "It's great to hear from you. How's your day going so far? Is everything okay, or is there something on your mind that you'd like to talk about?",
+    "stress_detected": false,
+    "stress_level": 0,
+    "stress_category": null,
+    "is_crisis": false
+  },
+  {
+    "timestamp": "2026-02-17 14:50:25",
+    "user_input": "i am getting less marks i want to sleep too much due to which my parents are scolding me and i am frustresed by all of it",
+    "bot_response": "It sounds like you're feeling really overwhelmed and frustrated with your situation. It's totally normal to feel that way, especially when it feels like everything is piling up. Have you thought about talking to your parents about how you're feeling, or is there something specific that's making you want to sleep a lot lately?\n\n\n\ud83d\udca1 TRY THIS NOW:\n\n\u2022 Body Scan for Sleep\n  1. Lie in bed, close your eyes\n2. Focus attention on your toes, notice sensations\n3. Slowly move attention up: feet, legs, stomach, chest, arms, head\n4. If your mind wanders, gently return to body awareness\n5. Imagine tension melting away from each body part\n\n\u2022 Cognitive Shuffle\n  1. Pick a random word (like 'BEDTIME')\n2. For each letter, think of words starting with that letter\n3. Visualize each word for 3-5 seconds\n4. B: boat, banana, bird... E: elephant, egg...\n5. Continue until you fall asleep",
+    "stress_detected": true,
+    "stress_level": 4,
+    "stress_category": "physical",
+    "is_crisis": false
+  },
+  {
+    "timestamp": "2026-02-17 14:51:47",
+    "user_input": "great how are you",
+    "bot_response": "I'm doing well, thanks for asking. It's great to hear that you're doing great too, but if you ever need to talk about anything or just need someone to listen, I'm here for you. What's been the highlight of your day so far?",
+    "stress_detected": false,
+    "stress_level": 0,
+    "stress_category": null,
+    "is_crisis": false
+  },
+  {
+    "timestamp": "2026-02-17 14:54:02",
+    "user_input": "i dont have a girlfriend. i am feeling bad",
+    "bot_response": "It can be really tough to feel like you're missing out on a relationship. It's totally normal to feel bad about it, and I'm here to listen. What do you think would make you feel better about your current situation, or is there something specific that's making you wish you had a girlfriend right now?",
+    "stress_detected": false,
+    "stress_level": 0,
+    "stress_category": null,
+    "is_crisis": false
+  },
+  {
+    "timestamp": "2026-02-17 14:54:21",
+    "user_input": "i wanna have sex",
+    "bot_response": "It sounds like you're feeling a strong desire right now. That can be really frustrating if you're not able to act on it. Are you feeling lonely or is there something else driving this feeling for you?",
+    "stress_detected": false,
+    "stress_level": 0,
+    "stress_category": null,
+    "is_crisis": false
+  },
+  {
+    "timestamp": "2026-02-17 14:54:31",
+    "user_input": "porn",
+    "bot_response": "It takes a lot of courage to share something like that. Watching porn can be a complex issue, and it's okay to have feelings about it. Are you feeling guilty or worried about your porn use, or is there something else on your mind that you'd like to talk about?",
+    "stress_detected": false,
+    "stress_level": 0,
+    "stress_category": null,
+    "is_crisis": false
+  },
+  {
+    "timestamp": "2026-02-17 14:55:54",
+    "user_input": "i am a porn addict. what should i do how do i get over it",
+    "bot_response": "It takes a lot of courage to admit that. Overcoming porn addiction can be challenging, but it's definitely possible with the right support. Have you considered talking to a therapist or counselor who can help you address underlying issues and develop a plan to overcome your addiction?",
+    "stress_detected": false,
+    "stress_level": 0,
+    "stress_category": null,
+    "is_crisis": false
+  },
+  {
+    "timestamp": "2026-02-17 14:56:19",
+    "user_input": "i am broke and dont have money",
+    "bot_response": "That can be really stressful and overwhelming. It's okay to feel that way, and I'm here to listen. What's the most pressing financial concern for you right now, is it paying a specific bill or just getting by day-to-day?\n\n\n[COPING_TIP_START:0]\n\ud83d\udca1 Want a tip to help with stress? (click to reveal)\n[COPING_TIP_CONTENT:0]\n\n\u2022 The 3-3-3 Rule\n  Name:\n- 3 things you see\n- 3 sounds you hear\n- Move 3 body parts (wiggle fingers, roll shoulders, etc.)\n[COPING_TIP_END:0]\n\n[COPING_TIP_START:1]\n\ud83d\udca1 Want a tip to help with stress? (click to reveal)\n[COPING_TIP_CONTENT:1]\n\n\u2022 Hand on Heart\n  1. Place your hand over your heart\n2. Feel the warmth and your heartbeat\n3. Say to yourself: 'This is hard right now, but I'm doing my best'\n4. Take 3 slow breaths\n[COPING_TIP_END:1]",
+    "stress_detected": true,
+    "stress_level": 4,
+    "stress_category": "financial",
+    "is_crisis": false
+  },
+  {
+    "timestamp": "2026-02-17 14:57:18",
+    "user_input": "i borrow pens from my classamtes everday. i am so broke that i cant afford even a pen",
+    "bot_response": "That can be really tough and embarrassing. It takes a lot of courage to admit that you're struggling financially. Would it help to make a small list of essentials, like a pen, that you could try to save up for or find a way to get at a low cost?\n\n\n[COPING_TIP_START:0]\n\ud83d\udca1 Want a tip to help with stress? (click to reveal)\n[COPING_TIP_CONTENT:0]\n\n\u2022 The 3-3-3 Rule\n  Name:\n- 3 things you see\n- 3 sounds you hear\n- Move 3 body parts (wiggle fingers, roll shoulders, etc.)\n[COPING_TIP_END:0]\n\n[COPING_TIP_START:1]\n\ud83d\udca1 Want a tip to help with stress? (click to reveal)\n[COPING_TIP_CONTENT:1]\n\n\u2022 Hand on Heart\n  1. Place your hand over your heart\n2. Feel the warmth and your heartbeat\n3. Say to yourself: 'This is hard right now, but I'm doing my best'\n4. Take 3 slow breaths\n[COPING_TIP_END:1]\n\n\ud83d\udcac Your stress level seems high. Professional support could really help.",
+    "stress_detected": true,
+    "stress_level": 10,
+    "stress_category": "financial",
+    "is_crisis": false
   }
 ]

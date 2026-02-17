@@ -1,0 +1,176 @@
+{
+  "online_therapy": [
+    {
+      "name": "BetterHelp",
+      "type": "Online Therapy Platform",
+      "cost": "$60-90/week",
+      "payment_options": ["Insurance (some plans)", "Out-of-pocket", "HSA/FSA"],
+      "description": "Online therapy with licensed therapists via messaging, video, or phone",
+      "website": "https://www.betterhelp.com",
+      "specialties": ["Depression", "Anxiety", "Relationship Issues", "Trauma", "LGBTQ+"],
+      "availability": "Match within 48 hours"
+    },
+    {
+      "name": "Talkspace",
+      "type": "Online Therapy Platform",
+      "cost": "$69-99/week",
+      "payment_options": ["Insurance (many plans)", "Out-of-pocket"],
+      "description": "Text and video therapy with licensed therapists",
+      "website": "https://www.talkspace.com",
+      "specialties": ["Depression", "Anxiety", "Couples Therapy", "Teen Therapy"],
+      "availability": "24-48 hours"
+    },
+    {
+      "name": "ReGain",
+      "type": "Couples Therapy",
+      "cost": "$60-90/week per couple",
+      "payment_options": ["Out-of-pocket"],
+      "description": "Online couples counseling and relationship therapy",
+      "website": "https://www.regain.us",
+      "specialties": ["Marriage", "Relationship Issues", "Communication"],
+      "availability": "Within 48 hours"
+    }
+  ],
+  
+  "affordable_therapy": [
+    {
+      "name": "Open Path Collective",
+      "type": "Reduced-Fee Therapy Network",
+      "cost": "$30-80/session (one-time $65 membership)",
+      "payment_options": ["Out-of-pocket"],
+      "description": "Network of therapists offering reduced-fee sessions for those without insurance",
+      "website": "https://openpathcollective.org",
+      "specialties": "All types"
+    },
+    {
+      "name": "Community Mental Health Centers",
+      "type": "Local Clinic",
+      "cost": "Sliding scale based on income",
+      "payment_options": ["Medicaid", "Medicare", "Sliding scale", "Free"],
+      "description": "Federally-funded health centers providing mental health services",
+      "website": "https://findahealthcenter.hrsa.gov",
+      "specialties": "All types"
+    },
+    {
+      "name": "University Counseling Centers",
+      "type": "Training Clinics",
+      "cost": "Free or low-cost",
+      "payment_options": ["Often free or under $20/session"],
+      "description": "Graduate students in training provide therapy under supervision",
+      "specialties": "All types",
+      "note": "Check local universities with psychology/counseling programs"
+    }
+  ],
+  
+  "support_groups": [
+    {
+      "name": "NAMI Support Groups",
+      "type": "Peer Support",
+      "cost": "Free",
+      "format": "In-person and virtual",
+      "description": "Free support groups for people with mental health conditions and their families",
+      "contact": "Call NAMI Helpline: 800-950-6264",
+      "website": "https://www.nami.org/Support-Education/Support-Groups",
+      "types": ["NAMI Connection (for individuals)", "NAMI Family-to-Family", "NAMI Basics (for parents)"]
+    },
+    {
+      "name": "Depression and Bipolar Support Alliance (DBSA)",
+      "type": "Peer Support",
+      "cost": "Free",
+      "format": "In-person and virtual",
+      "description": "Support groups specifically for depression and bipolar disorder",
+      "website": "https://secure.dbsalliance.org/site/SPageNavigator/FindAGroup.html",
+      "contact": "Call 800-826-3632"
+    },
+    {
+      "name": "Anxiety and Depression Association of America (ADAA)",
+      "type": "Support Groups",
+      "cost": "Free",
+      "format": "Virtual and in-person",
+      "description": "Find support groups for anxiety disorders",
+      "website": "https://adaa.org/supportgroups"
+    },
+    {
+      "name": "Support Groups Central",
+      "type": "Directory",
+      "cost": "Free directory",
+      "format": "All formats",
+      "description": "Directory of mental health support groups by condition and location",
+      "website": "https://www.supportgroupscentral.com"
+    }
+  ],
+  
+  "helplines": [
+    {
+      "name": "SAMHSA National Helpline",
+      "type": "Information & Referral",
+      "contact": "Call 800-662-4357",
+      "available": "24/7",
+      "cost": "Free",
+      "description": "Treatment referral and information service for mental health and substance use disorders",
+      "website": "https://www.samhsa.gov/find-help/national-helpline",
+      "languages": ["English", "Spanish"]
+    },
+    {
+      "name": "Postpartum Support International Helpline",
+      "type": "Maternal Mental Health",
+      "contact": "Call 800-944-4773 or text 503-894-9453",
+      "available": "24/7",
+      "cost": "Free",
+      "description": "Support for pregnancy and postpartum depression and anxiety",
+      "website": "https://www.postpartum.net"
+    },
+    {
+      "name": "RAINN National Sexual Assault Hotline",
+      "type": "Trauma Support",
+      "contact": "Call 800-656-4673",
+      "available": "24/7",
+      "cost": "Free",
+      "description": "Support for survivors of sexual assault",
+      "website": "https://www.rainn.org"
+    }
+  ],
+  
+  "therapy_directories": [
+    {
+      "name": "Psychology Today Therapist Finder",
+      "type": "Directory",
+      "cost": "Varies by therapist",
+      "description": "Find therapists in your area by specialty, insurance, and approach",
+      "website": "https://www.psychologytoday.com/us/therapists",
+      "filters": ["Insurance", "Specialty", "Approach", "Location", "Language"]
+    },
+    {
+      "name": "TherapyDen",
+      "type": "Inclusive Directory",
+      "cost": "Varies",
+      "description": "Therapist directory focusing on culturally responsive and affirming providers",
+      "website": "https://www.therapyden.com",
+      "filters": ["LGBTQ+ affirming", "POC", "Religion", "Specialty"]
+    },
+    {
+      "name": "Inclusive Therapists",
+      "type": "Directory",
+      "cost": "Varies",
+      "description": "Directory of social justice-oriented therapists",
+      "website": "https://www.inclusivetherapists.com"
+    }
+  ],
+  
+  "medication_assistance": [
+    {
+      "name": "GoodRx",
+      "type": "Prescription Discounts",
+      "cost": "Free to use",
+      "description": "Find coupons and compare prices for psychiatric medications",
+      "website": "https://www.goodrx.com"
+    },
+    {
+      "name": "NeedyMeds",
+      "type": "Medication Assistance Database",
+      "cost": "Free",
+      "description": "Find patient assistance programs and discount cards for medications",
+      "website": "https://www.needymeds.org"
+    }
+  ]
+}

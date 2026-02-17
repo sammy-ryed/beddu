@@ -94,11 +94,54 @@ document.addEventListener('DOMContentLoaded', () => {
         if (sender === 'user') {
             messageDiv.innerHTML = `<strong>You:</strong> ${escapeHtml(text)}`;
         } else {
-            messageDiv.innerHTML = `<strong>beedu:</strong> ${escapeHtml(text)}`;
+            // Process coping tips to make them collapsible
+            const processedText = processCopingTips(text);
+            messageDiv.innerHTML = `<strong>beedu:</strong> ${processedText}`;
         }
         
         chatMessages.appendChild(messageDiv);
+        
+        // Add click handlers for collapsible tips
+        if (sender === 'bot') {
+            messageDiv.querySelectorAll('.coping-tip-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    if (content.style.display === 'none' || !content.style.display) {
+                        content.style.display = 'block';
+                        this.classList.add('expanded');
+                        this.innerHTML = '💡 Hide tip';
+                    } else {
+                        content.style.display = 'none';
+                        this.classList.remove('expanded');
+                        this.innerHTML = '💡 Want a tip to help with stress? (click to reveal)';
+                    }
+                    scrollToBottom();
+                });
+            });
+        }
+        
         scrollToBottom();
+    }
+    
+    function processCopingTips(text) {
+        // Convert [COPING_TIP_START:X]...[COPING_TIP_END:X] into collapsible elements
+        let processed = escapeHtml(text);
+        
+        // Match coping tip patterns
+        const tipPattern = /\[COPING_TIP_START:(\d+)\]([\s\S]*?)\[COPING_TIP_CONTENT:\d+\]([\s\S]*?)\[COPING_TIP_END:\d+\]/g;
+        
+        processed = processed.replace(tipPattern, (match, id, buttonText, content) => {
+            // Clean up the text
+            buttonText = buttonText.trim();
+            content = content.trim();
+            
+            return `<div class="coping-tip-container">
+                <button class="coping-tip-button">${buttonText}</button>
+                <div class="coping-tip-content" style="display: none;">${content}</div>
+            </div>`;
+        });
+        
+        return processed;
     }
     
     function scrollToBottom() {
