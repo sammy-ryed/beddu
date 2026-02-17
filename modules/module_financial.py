@@ -37,7 +37,13 @@ class FinancialStressDetector:
         
         # Severity 4-5 - Moderate
         'credit card debt': 5, 'student loans': 4, 'medical debt': 6,
-        'car payment': 4, 'payment plan': 4, 'minimum payment': 5
+        'car payment': 4, 'payment plan': 4, 'minimum payment': 5,
+        
+        # India-specific debt terms
+        'emi': 5, 'emis': 5, 'loan emi': 6, 'home loan': 5, 'personal loan': 5,
+        'gold loan': 6, 'education loan': 4, 'vehicle loan': 5,
+        'money lender': 8, 'private lender': 8, 'lakh rupees': 6, 'lakhs debt': 7,
+        'crore debt': 9, 'recovery agent': 8, 'loan recovery': 8
     }
     
     INCOME_KEYWORDS = {
@@ -51,7 +57,13 @@ class FinancialStressDetector:
         
         # Severity 4-6 - Moderate
         'underpaid': 5, 'minimum wage': 4, 'barely making ends meet': 7,
-        'living paycheck to paycheck': 6, 'tight budget': 5
+        'living paycheck to paycheck': 6, 'tight budget': 5,
+        
+        # India-specific income terms
+        'salary delay': 7, 'salary not paid': 9, 'no salary': 9,
+        'pending salary': 7, 'gratuity': 5, 'pf withdrawal': 6,
+        'no work': 8, 'business loss': 8, 'shop closed': 8,
+        'crop failure': 9, 'harvest loss': 8, 'farm debt': 8
     }
     
     BILLS_KEYWORDS = {
@@ -66,7 +78,14 @@ class FinancialStressDetector:
         
         # Severity 5-6 - Moderate
         'tight month': 5, 'struggling with bills': 6, 'expensive bills': 5,
-        'unexpected expense': 6, 'emergency expense': 7
+        'unexpected expense': 6, 'emergency expense': 7,
+        
+        # India-specific bill terms
+        'electricity bill': 5, 'phone bill': 4, 'internet bill': 4,
+        'school fees': 6, 'tuition fees': 6, 'medical bills': 7,
+        'hospital bills': 8, 'treatment cost': 7, 'surgery cost': 8,
+        'rent due': 7, 'maintenance charges': 5, 'society dues': 5,
+        'no ration': 8, 'ration card': 6
     }
     
     BANKRUPTCY_INDICATORS = {

@@ -1,216 +1,272 @@
 {
   "credit_counseling": [
     {
-      "name": "National Foundation for Credit Counseling (NFCC)",
+      "name": "Credit Counselling Centres India",
       "type": "Nonprofit Credit Counseling",
-      "contact": "Call 800-388-2227",
-      "cost": "Free or low-cost (typically under $50)",
-      "description": "Nonprofit credit counseling, debt management plans, and financial education",
-      "website": "https://www.nfcc.org",
-      "services": ["Credit counseling", "Debt management plans", "Bankruptcy counseling", "Housing counseling"],
-      "availability": "Nationwide"
+      "contact": "Visit website for nearest center",
+      "cost": "Free",
+      "description": "RBI-promoted credit counseling centers for debt management and financial advice",
+      "website": "https://www.rbi.org.in",
+      "services": ["Credit counseling", "Debt restructuring advice", "Financial literacy"],
+      "availability": "Pan-India"
     },
     {
-      "name": "Financial Counseling Association of America (FCAA)",
-      "type": "Nonprofit Credit Counseling",
-      "contact": "Call 800-450-1794",
-      "cost": "Free consultation",
-      "description": "Nonprofit financial counseling and debt management",
-      "website": "https://www.fcaa.org",
-      "services": ["Debt counseling", "Budget planning", "Credit education"]
+      "name": "SEBI Investor Grievance Portal",
+      "type": "Investment Complaints",
+      "contact": "Online portal: scores.gov.in",
+      "cost": "Free",
+      "description": "File complaints against financial institutions and resolve investment issues",
+      "website": "https://scores.gov.in",
+      "services": ["Investment disputes", "Trading issues", "Fraud complaints"]
     }
   ],
   
   "emergency_assistance": [
     {
-      "name": "211 Helpline",
-      "type": "Community Resources",
-      "contact": "Dial 211 or visit 211.org",
-      "available": "24/7",
-      "cost": "Free",
-      "description": "Find local help with rent, food, utilities, and other essential needs",
-      "services": ["Emergency rent assistance", "Utility bill help", "Food assistance", "Job training"],
-      "availability": "Nationwide USA"
+      "name": "PM Cares Fund",
+      "type": "Emergency Relief",
+      "cost": "Free (application-based)",
+      "description": "Government emergency relief fund for various calamities and crises",
+      "website": "https://www.pmcares.gov.in",
+      "services": ["Emergency financial aid", "Medical emergencies", "Natural calamities"]
     },
     {
-      "name": "Modest Needs",
-      "type": "Emergency Financial Assistance",
-      "cost": "Free to apply",
-      "description": "Short-term financial grants for people facing temporary financial crisis",
-      "website": "https://www.modestneeds.org",
-      "services": ["One-time emergency grants", "Bills", "Emergency expenses"],
-      "note": "Must be working but still struggling"
+      "name": "Chief Minister Relief Fund",
+      "type": "State Emergency Fund",
+      "cost": "Free",
+      "description": "State-level relief funds for medical and financial emergencies",
+      "contact": "Contact respective state CM office",
+      "services": ["Medical emergencies", "Accident victims", "Natural calamity victims"]
     },
     {
-      "name": "Benefits.gov",
-      "type": "Government Benefits Finder",
-      "cost": "Free",
-      "description": "Find government assistance programs you may qualify for",
-      "website": "https://www.benefits.gov",
-      "programs": ["SNAP (food stamps)", "Housing assistance", "Medical assistance", "Child care", "Unemployment"]
+      "name": "Aam Aadmi Bima Yojana",
+      "type": "Insurance for Rural Poor",
+      "cost": "Subsidized",
+      "description": "Life insurance scheme for rural landless households",
+      "website": "https://labour.gov.in",
+      "coverage": ["Natural death: ₹30,000", "Accidental death: ₹75,000"]
     },
     {
-      "name": "Emergency Rental Assistance",
-      "type": "Rental Help",
-      "cost": "Free",
-      "description": "Federal emergency rental assistance program",
-      "website": "https://home.treasury.gov/policy-issues/coronavirus/assistance-for-state-local-and-tribal-governments/emergency-rental-assistance-program",
-      "services": ["Back rent", "Utility bills", "Future rent payments"]
+      "name": "National Social Assistance Programme",
+      "type": "Social Security",
+      "cost": "Free for eligible",
+      "description": "Central assistance to elderly, widows, and disabled persons",
+      "website": "https://nsap.nic.in",
+      "schemes": ["Old Age Pension", "Widow Pension", "Disability Pension"]
     }
   ],
   
   "food_assistance": [
     {
-      "name": "Feeding America",
-      "type": "Food Banks Network",
-      "cost": "Free",
-      "description": "Locate food banks and pantries near you",
-      "website": "https://www.feedingamerica.org/find-your-local-foodbank",
-      "services": ["Food pantries", "Soup kitchens", "Mobile food distribution"]
+      "name": "Public Distribution System (PDS)",
+      "type": "Subsidized Food",
+      "cost": "₹1-3 per kg",
+      "description": "Ration card system for subsidized food grains",
+      "contact": "Apply at local ration office or online",
+      "services": ["Rice", "Wheat", "Sugar", "Kerosene"],
+      "eligibility": "Antyodaya, Priority, or APL card holders"
     },
     {
-      "name": "SNAP (Food Stamps)",
-      "type": "Government Program",
+      "name": "Mid-Day Meal Scheme",
+      "type": "School Meals",
       "cost": "Free",
-      "description": "Monthly benefits to purchase groceries",
-      "website": "https://www.fns.usda.gov/snap/supplemental-nutrition-assistance-program",
-      "apply": "Contact local SNAP office or apply online"
+      "description": "Free lunch for children in government schools",
+      "website": "https://mdm.nic.in",
+      "serves": "Children grades 1-8"
+    },
+    {
+      "name": "Annapurna Yojana",
+      "type": "Food Scheme",
+      "cost": "Free",
+      "description": "10 kg of food grains per month for destitute senior citizens",
+      "contact": "Apply through local administration",
+      "eligibility": "Senior citizens not covered under pension schemes"
     }
   ],
   
   "debt_management": [
     {
-      "name": "National Debt Relief",
-      "type": "Debt Settlement",
-      "cost": "Fee-based (15-25% of enrolled debt)",
-      "description": "Negotiate with creditors to reduce debt amounts",
-      "website": "https://www.nationaldebtrelief.com",
-      "services": ["Debt settlement", "Debt negotiation"],
-      "note": "Only for those seriously behind on payments"
+      "name": "CIBIL Dispute Resolution",
+      "type": "Credit Score Correction",
+      "contact": "Visit https://www.cibil.com",
+      "cost": "Free dispute filing",
+      "description": "Correct errors in credit report and improve credit score",
+      "website": "https://www.cibil.com",
+      "services": ["Credit report errors", "Identity theft", "Incorrect records"]
     },
     {
-      "name": "InCharge Debt Solutions",
-      "type": "Nonprofit Debt Management",
-      "cost": "Low monthly fee (~$35-50)",
-      "description": "Debt management plans and credit counseling",
-      "website": "https://www.incharge.org",
-      "services": ["Debt management plans", "Credit counseling", "Bankruptcy counseling"]
+      "name": "Banking Ombudsman",
+      "type": "Bank Complaint Resolution",
+      "contact": "File online at RBI website",
+      "cost": "Free",
+      "description": "Resolve disputes with banks regarding loans, charges, harassment",
+      "website": "https://cms.rbi.org.in",
+      "services": ["Loan harassment", "Unfair charges", "Service deficiency"]
+    },
+    {
+      "name": "Debt Relief Schemes by Banks",
+      "type": "Loan Restructuring",
+      "description": "Various debt relief and loan restructuring schemes by public sector banks",
+      "contact": "Contact your bank directly",
+      "services": ["EMI reduction", "Loan tenure extension", "One-time settlement"]
     }
   ],
   
   "employment_resources": [
     {
-      "name": "CareerOneStop",
-      "type": "Employment Services",
+      "name": "National Career Service Portal",
+      "type": "Job Search Platform",
       "cost": "Free",
-      "description": "Job search tools, career resources, and training programs sponsored by US Dept of Labor",
-      "website": "https://www.careeronestop.org",
-      "services": ["Job search", "Resume builder", "Training finder", "Unemployment benefits info"]
+      "description": "Government job portal connecting job seekers with employers",
+      "website": "https://www.ncs.gov.in",
+      "services": ["Job search", "Career counseling", "Skill training", "Resume building"],
+      "register": "Online registration"
     },
     {
-      "name": "Goodwill Job Connection",
-      "type": "Job Training & Placement",
+      "name": "MGNREGA",
+      "type": "Rural Employment Guarantee",
       "cost": "Free",
-      "description": "Free job training and placement services",
-      "website": "https://www.goodwill.org/jobs-training/",
-      "services": ["Job training", "Resume help", "Interview prep"]
+      "description": "100 days of guaranteed wage employment for rural households",
+      "website": "https://nrega.nic.in",
+      "wage": "State-wise minimum wages (₹200-300/day)",
+      "eligibility": "Rural households"
     },
     {
-      "name": "SkillUp Coalition",
-      "type": "Free Online Training",
+      "name": "PM Daksh Yojana",
+      "type": "Skill Development",
+      "cost": "Free training",
+      "description": "Free skill development training for marginalized communities",
+      "website": "https://pmdaksh.dosje.gov.in",
+      "courses": ["IT", "Healthcare", "Manufacturing", "Construction"]
+    },
+    {
+      "name": "Pradhan Mantri Kaushal Vikas Yojana",
+      "type": "Skill Training",
       "cost": "Free",
-      "description": "Free online courses for career skills",
-      "website": "https://www.skilluponline.org",
-      "services": ["Tech skills", "Business skills", "Certifications"]
+      "description": "Free skill training program with certification and placement assistance",
+      "website": "https://www.pmkvyofficial.org",
+      "stipend": "₹1000-1500 during training"
+    },
+    {
+      "name": "Mudra Yojana",
+      "type": "Business Loans",
+      "cost": "Low interest (7-12%)",
+      "description": "Loans up to ₹10 lakh for starting small businesses",
+      "website": "https://www.mudra.org.in",
+      "loan_types": ["Shishu: up to ₹50,000", "Kishore: ₹50,000-5 lakh", "Tarun: ₹5-10 lakh"],
+      "apply": "Through banks and NBFCs"
     }
   ],
   
   "housing_assistance": [
     {
-      "name": "HUD Housing Counseling",
-      "type": "Housing Counseling",
-      "contact": "Call 800-569-4287",
-      "cost": "Free",
-      "description": "Find HUD-approved housing counselor for foreclosure prevention, rental help",
-      "website": "https://www.hud.gov/findacounselor",
-      "services": ["Foreclosure prevention", "Rental assistance", "Homelessness prevention"]
+      "name": "Pradhan Mantri Awas Yojana (PMAY)",
+      "type": "Housing Scheme",
+      "cost": "Interest subsidy + grant",
+      "description": "Affordable housing scheme with interest subsidy and direct grants",
+      "website": "https://pmaymis.gov.in",
+      "subsidy": "Up to ₹2.67 lakh interest subsidy",
+      "grant": "₹1.5-2.5 lakh direct assistance for EWS"
     },
     {
-      "name": "Salvation Army Rental Assistance",
-      "type": "Emergency Housing Help",
-      "cost": "Free",
-      "description": "Emergency financial assistance for rent and utilities",
-      "website": "https://www.salvationarmyusa.org/usn/provide-shelter/",
-      "services": ["Emergency rent help", "Utility assistance", "Shelter"]
+      "name": "Rental Housing Scheme",
+      "type": "Subsidized Rental",
+      "description": "Government quarters and rental housing at subsidized rates",
+      "contact": "Contact local housing board",
+      "eligibility": "Low-income groups"
     }
   ],
   
   "utility_assistance": [
     {
-      "name": "LIHEAP (Low Income Home Energy Assistance)",
-      "type": "Government Program",
-      "cost": "Free",
-      "description": "Help paying heating and cooling bills",
-      "website": "https://www.acf.hhs.gov/ocs/liheap",
-      "apply": "Contact local LIHEAP office"
+      "name": "State Electricity Board Schemes",
+      "type": "Subsidized Electricity",
+      "description": "Subsidized or free electricity for low-income households",
+      "contact": "State electricity board",
+      "varies_by": "State-specific schemes",
+      "examples": ["Free up to 200 units in Delhi", "₹1 per unit in Punjab"]
     },
     {
-      "name": "Dollar Energy Fund",
-      "type": "Utility Bill Assistance",
-      "cost": "Free",
-      "description": "Grants to help pay utility bills",
-      "website": "https://www.dollarenergy.org",
-      "serves": "Select states"
+      "name": "Ujjwala Yojana",
+      "type": "LPG Subsidy",
+      "cost": "First cylinder free + ₹1600",
+      "description": "Free LPG connection with first refill for BPL families",
+      "website": "https://www.pmuy.gov.in",
+      "subsidy": "₹200 per refill for eligible families"
     }
   ],
   
   "financial_education": [
     {
-      "name": "MyMoney.gov",
+      "name": "RBI Financial Literacy Centers",
       "type": "Financial Education",
       "cost": "Free",
-      "description": "Government resource for financial education",
-      "website": "https://www.mymoney.gov",
-      "topics": ["Budgeting", "Credit", "Saving", "Investing", "Taxes"]
+      "description": "Free financial literacy programs by Reserve Bank of India",
+      "website": "https://www.rbi.org.in",
+      "topics": ["Banking", "Savings", "Investments", "Loans", "Insurance"]
     },
     {
-      "name": "Khan Academy Personal Finance",
-      "type": "Free Courses",
+      "name": "SEBI Investor Education",
+      "type": "Investment Education",
       "cost": "Free",
-      "description": "Free courses on personal finance topics",
-      "website": "https://www.khanacademy.org/college-careers-more/personal-finance",
-      "topics": ["Budgeting", "Interest", "Credit", "Taxes"]
+      "description": "Learn about stock markets, mutual funds, and safe investing",
+      "website": "https://investor.sebi.gov.in",
+      "resources": ["Videos", "Guides", "Webinars", "Comics"]
+    },
+    {
+      "name": "MyMoney Portal - IRDAI",
+      "type": "Insurance Education",
+      "cost": "Free",
+      "description": "Learn about insurance products and make informed decisions",
+      "website": "https://www.policyholder.gov.in",
+      "topics": ["Life insurance", "Health insurance", "Policy comparison"]
     }
   ],
   
   "bankruptcy_resources": [
     {
-      "name": "Legal Aid Bankruptcy Help",
-      "type": "Free Legal Assistance",
-      "cost": "Free",
-      "description": "Free or low-cost legal help for bankruptcy",
-      "website": "https://www.lsc.gov/find-legal-aid",
-      "services": ["Bankruptcy consultation", "Filing assistance"]
+      "name": "Insolvency and Bankruptcy Board of India",
+      "type": "Bankruptcy Process",
+      "contact": "Visit website",
+      "cost": "Legal fees apply",
+      "description": "Information on personal insolvency and bankruptcy process in India",
+      "website": "https://www.ibbi.gov.in",
+      "note": "Personal insolvency framework being implemented"
     },
     {
-      "name": "Upsolve",
-      "type": "Free Bankruptcy Filing",
-      "cost": "Free",
-      "description": "Free tool to file Chapter 7 bankruptcy without a lawyer",
-      "website": "https://upsolve.org",
-      "services": ["Chapter 7 bankruptcy filing help"],
-      "note": "For those with simple cases and income under certain thresholds"
+      "name": "Legal Services Authority",
+      "type": "Free Legal Aid",
+      "cost": "Free for eligible",
+      "description": "Free legal assistance for debt and bankruptcy matters",
+      "contact": "District Legal Services Authority",
+      "eligibility": "Income below ₹1 lakh per annum"
     }
   ],
   
-  "financial_therapy": [
+  "government_schemes": [
     {
-      "name": "Financial Therapy Association",
-      "type": "Financial Therapist Directory",
-      "cost": "Varies",
-      "description": "Find therapists who specialize in financial stress and money issues",
-      "website": "https://www.financialtherapyassociation.org",
-      "services": ["Money anxiety", "Financial stress counseling", "Relationship money issues"]
+      "name": "PM Kisan Samman Nidhi",
+      "type": "Farmer Support",
+      "cost": "Free",
+      "description": "₹6000 per year direct income support for small farmers",
+      "website": "https://pmkisan.gov.in",
+      "eligibility": "Farmers with up to 2 hectare land"
+    },
+    {
+      "name": "Atal Pension Yojana",
+      "type": "Pension Scheme",
+      "cost": "₹42-1454 per month contribution",
+      "description": "Pension of ₹1000-5000 per month after 60 years",
+      "website": "https://www.npscra.nsdl.co.in/scheme-details-atal.php",
+      "eligibility": "Age 18-40 years"
+    },
+    {
+      "name": "Pradhan Mantri Jan Dhan Yojana",
+      "type": "Banking Access",
+      "cost": "Free",
+      "description": "Free bank account with RuPay debit card and ₹10,000 overdraft",
+      "website": "https://pmjdy.gov.in",
+      "benefits": ["Zero balance account", "Free debit card", "Insurance cover"]
     }
   ]
 }

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ char_name }} - Conversation History</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .history-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .history-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .history-tab {
+            padding: 10px 20px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .history-tab.active {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .history-tab:hover {
+            transform: translateY(-2px);
+        }
+        
+        .conversation-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .conversation-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .conversation-date {
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .stress-badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .stress-none {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .stress-low {
+            background: #fff3e0;
+            color: #ef6c00;
+        }
+        
+        .stress-medium {
+            background: #ffe0b2;
+            color: #e65100;
+        }
+        
+        .stress-high {
+            background: #ffcdd2;
+            color: #c62828;
+        }
+        
+        .stress-crisis {
+            background: #ef5350;
+            color: white;
+        }
+        
+        .conversation-exchange {
+            margin-bottom: 15px;
+        }
+        
+        .user-message-history {
+            background: #e3f2fd;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .bot-message-history {
+            background: #f5f5f5;
+            padding: 12px;
+            border-radius: 8px;
+        }
+        
+        .message-label {
+            font-weight: bold;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .permanent-memory-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .memory-fact {
+            background: rgba(255,255,255,0.15);
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .memory-category {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+        
+        .no-history {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+        
+        .filter-section {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 8px 16px;
+            background: #fff;
+            border: 2px solid #ddd;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+        
+        .filter-btn.active {
+            background: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+        
+        #loading-history {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>{{ char_name }} - Your Journey</h1>
+            <div style="display: flex; gap: 10px;">
+                <a href="/" class="stats-link">💬 Chat</a>
+                <a href="/stats-page" class="stats-link">📊 Stats</a>
+            </div>
+        </header>
+
+        <div class="history-container">
+            <div class="history-tabs">
+                <button class="history-tab active" onclick="showTab('conversations')">
+                    💬 Conversations
+                </button>
+                <button class="history-tab" onclick="showTab('memory')">
+                    🧠 What I Remember
+                </button>
+            </div>
+
+            <!-- Conversations Tab -->
+            <div id="conversations-tab">
+                <div id="loading-history">Loading your conversation history...</div>
+                
+                <div id="history-content" style="display: none;">
+                    <div class="filter-section">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="stress">With Stress</button>
+                        <button class="filter-btn" data-filter="crisis">Crisis</button>
+                    </div>
+                    
+                    <div id="conversation-list"></div>
+                    
+                    <div id="no-history" class="no-history" style="display: none;">
+                        <h3>No conversations yet</h3>
+                        <p>Start chatting with {{ char_name }} to build your history!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Memory Tab -->
+            <div id="memory-tab" style="display: none;">
+                <div id="loading-memory">Loading permanent memories...</div>
+                
+                <div id="memory-content" style="display: none;">
+                    <div class="permanent-memory-card">
+                        <h2 style="margin-top: 0;">🧠 What I Remember About You</h2>
+                        <p style="opacity: 0.9; font-size: 14px; margin-bottom: 20px;">
+                            These are key facts I've learned about you from our conversations. 
+                            I use these to provide more personalized support.
+                        </p>
+                        <div id="memory-facts"></div>
+                    </div>
+                    
+                    <div id="no-memory" class="no-history" style="display: none;">
+                        <h3>No memories yet</h3>
+                        <p>As we talk more, I'll learn important things about you to provide better support.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let allConversations = [];
+        let currentFilter = 'all';
+
+        // Load conversation history
+        fetch('/history')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('loading-history').style.display = 'none';
+                document.getElementById('history-content').style.display = 'block';
+                
+                allConversations = data.history || [];
+                
+                if (allConversations.length === 0) {
+                    document.getElementById('no-history').style.display = 'block';
+                } else {
+                    renderConversations();
+                }
+            })
+            .catch(error => {
+                document.getElementById('loading-history').textContent = 'Error loading history: ' + error.message;
+            });
+
+        // Load permanent memory
+        fetch('/permanent-memory')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('loading-memory').style.display = 'none';
+                document.getElementById('memory-content').style.display = 'block';
+                
+                const facts = data.permanent_memory?.facts || [];
+                
+                if (facts.length === 0) {
+                    document.getElementById('no-memory').style.display = 'block';
+                } else {
+                    renderMemoryFacts(facts);
+                }
+            })
+            .catch(error => {
+                document.getElementById('loading-memory').textContent = 'Error loading memory: ' + error.message;
+            });
+
+        function renderConversations() {
+            const container = document.getElementById('conversation-list');
+            container.innerHTML = '';
+            
+            // Filter conversations
+            let filtered = allConversations;
+            if (currentFilter === 'stress') {
+                filtered = allConversations.filter(c => c.stress_detected);
+            } else if (currentFilter === 'crisis') {
+                filtered = allConversations.filter(c => c.is_crisis);
+            }
+            
+            // Reverse to show newest first
+            filtered = [...filtered].reverse();
+            
+            if (filtered.length === 0) {
+                container.innerHTML = '<div class="no-history"><p>No conversations match this filter</p></div>';
+                return;
+            }
+            
+            filtered.forEach(conversation => {
+                const card = document.createElement('div');
+                card.className = 'conversation-card';
+                
+                // Determine stress level
+                let stressBadge = '';
+                if (conversation.is_crisis) {
+                    stressBadge = '<span class="stress-badge stress-crisis">🚨 CRISIS</span>';
+                } else if (conversation.stress_detected) {
+                    const level = conversation.stress_level || 0;
+                    if (level >= 8) {
+                        stressBadge = '<span class="stress-badge stress-high">High Stress</span>';
+                    } else if (level >= 5) {
+                        stressBadge = '<span class="stress-badge stress-medium">Moderate Stress</span>';
+                    } else {
+                        stressBadge = '<span class="stress-badge stress-low">Mild Stress</span>';
+                    }
+                } else {
+                    stressBadge = '<span class="stress-badge stress-none">Casual Chat</span>';
+                }
+                
+                card.innerHTML = `
+                    <div class="conversation-meta">
+                        <span class="conversation-date">${formatDate(conversation.timestamp)}</span>
+                        ${stressBadge}
+                    </div>
+                    <div class="conversation-exchange">
+                        <div class="user-message-history">
+                            <div class="message-label">You:</div>
+                            ${escapeHtml(conversation.user_input)}
+                        </div>
+                        <div class="bot-message-history">
+                            <div class="message-label">{{ char_name }}:</div>
+                            ${escapeHtml(conversation.bot_response)}
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+
+        function renderMemoryFacts(facts) {
+            const container = document.getElementById('memory-facts');
+            container.innerHTML = '';
+            
+            // Group by category
+            const grouped = {};
+            facts.forEach(fact => {
+                const category = fact.category || 'general';
+                if (!grouped[category]) {
+                    grouped[category] = [];
+                }
+                grouped[category].push(fact);
+            });
+            
+            // Render each category
+            for (const [category, categoryFacts] of Object.entries(grouped)) {
+                categoryFacts.forEach(fact => {
+                    const factDiv = document.createElement('div');
+                    factDiv.className = 'memory-fact';
+                    factDiv.innerHTML = `
+                        <div class="memory-category">${category.toUpperCase()}</div>
+                        <div>${escapeHtml(fact.fact)}</div>
+                    `;
+                    container.appendChild(factDiv);
+                });
+            }
+        }
+
+        function showTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.history-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Show/hide tabs
+            document.getElementById('conversations-tab').style.display = tabName === 'conversations' ? 'block' : 'none';
+            document.getElementById('memory-tab').style.display = tabName === 'memory' ? 'block' : 'none';
+        }
+
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentFilter = this.dataset.filter;
+                renderConversations();
+            });
+        });
+
+        function formatDate(timestamp) {
+            const date = new Date(timestamp);
+            const now = new Date();
+            const diffMs = now - date;
+            const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+            
+            if (diffDays === 0) {
+                return 'Today at ' + date.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+            } else if (diffDays === 1) {
+                return 'Yesterday at ' + date.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+            } else {
+                return date.toLocaleDateString('en-IN', { 
+                    month: 'short', 
+                    day: 'numeric', 
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>

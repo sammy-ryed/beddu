@@ -355,3 +355,19 @@ header h1 {
         padding: 15px 20px;
     }
 }
+
+/* History Messages Styling */
+.history-message {
+    opacity: 0.7;
+    font-size: 0.95em;
+}
+
+.history-separator {
+    margin: 15px 0;
+    padding: 10px 0;
+}
+
+.history-separator small {
+    color: #999;
+    font-size: 0.85em;
+}

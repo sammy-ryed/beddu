@@ -1,176 +1,192 @@
 {
   "online_therapy": [
     {
-      "name": "BetterHelp",
+      "name": "Practo Mind",
       "type": "Online Therapy Platform",
-      "cost": "$60-90/week",
-      "payment_options": ["Insurance (some plans)", "Out-of-pocket", "HSA/FSA"],
-      "description": "Online therapy with licensed therapists via messaging, video, or phone",
-      "website": "https://www.betterhelp.com",
-      "specialties": ["Depression", "Anxiety", "Relationship Issues", "Trauma", "LGBTQ+"],
-      "availability": "Match within 48 hours"
+      "cost": "₹500-1000 per session",
+      "payment_options": ["Credit/Debit Card", "UPI", "Net Banking"],
+      "description": "Online counseling with licensed psychologists and psychiatrists",
+      "website": "https://www.practo.com/consult/mind",
+      "specialties": ["Depression", "Anxiety", "Relationship Issues", "Stress Management"],
+      "availability": "Same day or next day",
+      "languages": ["Hindi", "English", "Regional Languages"]
     },
     {
-      "name": "Talkspace",
-      "type": "Online Therapy Platform",
-      "cost": "$69-99/week",
-      "payment_options": ["Insurance (many plans)", "Out-of-pocket"],
-      "description": "Text and video therapy with licensed therapists",
-      "website": "https://www.talkspace.com",
-      "specialties": ["Depression", "Anxiety", "Couples Therapy", "Teen Therapy"],
-      "availability": "24-48 hours"
+      "name": "YourDOST",
+      "type": "Online Counseling Platform",
+      "cost": "₹500-1500 per session",
+      "payment_options": ["Credit/Debit Card", "UPI", "Wallets"],
+      "description": "Anonymous online counseling for students, professionals, and individuals",
+      "website": "https://yourdost.com",
+      "specialties": ["Career Stress", "Academic Pressure", "Relationships", "Depression", "Anxiety"],
+      "availability": "Chat, Audio, Video counseling",
+      "languages": ["Hindi", "English"]
     },
     {
-      "name": "ReGain",
-      "type": "Couples Therapy",
-      "cost": "$60-90/week per couple",
-      "payment_options": ["Out-of-pocket"],
-      "description": "Online couples counseling and relationship therapy",
-      "website": "https://www.regain.us",
-      "specialties": ["Marriage", "Relationship Issues", "Communication"],
-      "availability": "Within 48 hours"
+      "name": "BetterLYF",
+      "type": "Online Counseling",
+      "cost": "₹1000-2500 per session",
+      "payment_options": ["Credit/Debit Card", "Net Banking", "Paytm"],
+      "description": "Online therapy with RCI-licensed counselors",
+      "website": "https://www.betterlyf.com",
+      "specialties": ["Depression", "Anxiety", "OCD", "Couples Therapy"],
+      "availability": "Video, Audio, Chat",
+      "languages": ["Hindi", "English"]
+    },
+    {
+      "name": "Amaha (InnerHour)",
+      "type": "Mental Health App",
+      "cost": "Free app + ₹600-2000 for therapy",
+      "payment_options": ["In-app purchases"],
+      "description": "Mental health app with DIY tools and professional counseling",
+      "website": "https://www.amahahealth.com",
+      "specialties": ["Depression", "Anxiety", "Sleep Issues", "Stress"],
+      "availability": "App-based + Therapist sessions"
     }
   ],
   
   "affordable_therapy": [
     {
-      "name": "Open Path Collective",
-      "type": "Reduced-Fee Therapy Network",
-      "cost": "$30-80/session (one-time $65 membership)",
-      "payment_options": ["Out-of-pocket"],
-      "description": "Network of therapists offering reduced-fee sessions for those without insurance",
-      "website": "https://openpathcollective.org",
-      "specialties": "All types"
+      "name": "NIMHANS Tele-MANAS",
+      "type": "Government Tele-Mental Health",
+      "cost": "Free",
+      "payment_options": ["Free"],
+      "description": "National tele-mental health program by NIMHANS and Govt of India",
+      "contact": "Call 14416 or 1800-891-4416",
+      "specialties": "All mental health issues",
+      "languages": ["All major Indian languages"]
     },
     {
-      "name": "Community Mental Health Centers",
-      "type": "Local Clinic",
-      "cost": "Sliding scale based on income",
-      "payment_options": ["Medicaid", "Medicare", "Sliding scale", "Free"],
-      "description": "Federally-funded health centers providing mental health services",
-      "website": "https://findahealthcenter.hrsa.gov",
-      "specialties": "All types"
+      "name": "TISS iCall",
+      "type": "Counseling Service",
+      "cost": "Free",
+      "payment_options": ["Free"],
+      "description": "Professional psychosocial counseling by Tata Institute of Social Sciences",
+      "contact": "Call 9152-987-821",
+      "website": "https://icallhelpline.org",
+      "specialties": "All issues",
+      "languages": ["Hindi", "English", "Marathi", "Tamil"]
     },
     {
-      "name": "University Counseling Centers",
-      "type": "Training Clinics",
-      "cost": "Free or low-cost",
-      "payment_options": ["Often free or under $20/session"],
-      "description": "Graduate students in training provide therapy under supervision",
-      "specialties": "All types",
-      "note": "Check local universities with psychology/counseling programs"
+      "name": "Government Mental Health Centers",
+      "type": "District Mental Health Program",
+      "cost": "Free or subsidized (₹10-50)",
+      "payment_options": ["Cash", "Free for BPL"],
+      "description": "Government mental health centers in each district under DMHP",
+      "contact": "Find nearest center via District Hospital",
+      "specialties": "All mental health services"
+    },
+    {
+      "name": "Fortis Stress Helpline",
+      "type": "Hospital Helpline",
+      "cost": "Free helpline, consultation charges apply",
+      "contact": "Call 8376-804-102",
+      "description": "Mental health helpline by Fortis Healthcare",
+      "specialties": ["Stress", "Anxiety", "Depression"]
     }
   ],
   
   "support_groups": [
     {
-      "name": "NAMI Support Groups",
-      "type": "Peer Support",
+      "name": "Alcoholics Anonymous India",
+      "type": "Support Group",
       "cost": "Free",
-      "format": "In-person and virtual",
-      "description": "Free support groups for people with mental health conditions and their families",
-      "contact": "Call NAMI Helpline: 800-950-6264",
-      "website": "https://www.nami.org/Support-Education/Support-Groups",
-      "types": ["NAMI Connection (for individuals)", "NAMI Family-to-Family", "NAMI Basics (for parents)"]
+      "description": "Support groups for alcohol addiction recovery",
+      "website": "https://www.aaindia.org",
+      "contact": "Check website for local meetings"
     },
     {
-      "name": "Depression and Bipolar Support Alliance (DBSA)",
-      "type": "Peer Support",
+      "name": "Narcotics Anonymous India",
+      "type": "Support Group",
       "cost": "Free",
-      "format": "In-person and virtual",
-      "description": "Support groups specifically for depression and bipolar disorder",
-      "website": "https://secure.dbsalliance.org/site/SPageNavigator/FindAGroup.html",
-      "contact": "Call 800-826-3632"
+      "description": "Support groups for drug addiction recovery",
+      "website": "https://www.naindia.in",
+      "contact": "Check website for local meetings"
     },
     {
-      "name": "Anxiety and Depression Association of America (ADAA)",
-      "type": "Support Groups",
+      "name": "The Able in Disability Foundation",
+      "type": "Support Group",
       "cost": "Free",
-      "format": "Virtual and in-person",
-      "description": "Find support groups for anxiety disorders",
-      "website": "https://adaa.org/supportgroups"
-    },
-    {
-      "name": "Support Groups Central",
-      "type": "Directory",
-      "cost": "Free directory",
-      "format": "All formats",
-      "description": "Directory of mental health support groups by condition and location",
-      "website": "https://www.supportgroupscentral.com"
+      "description": "Support for people with mental health conditions and disabilities",
+      "website": "http://www.ableindisability.org",
+      "contact": "info@ableindisability.org"
     }
   ],
   
   "helplines": [
     {
-      "name": "SAMHSA National Helpline",
-      "type": "Information & Referral",
-      "contact": "Call 800-662-4357",
-      "available": "24/7",
+      "name": "NIMHANS Mental Health Helpline",
+      "contact": "Call 080-4611-0007",
       "cost": "Free",
-      "description": "Treatment referral and information service for mental health and substance use disorders",
-      "website": "https://www.samhsa.gov/find-help/national-helpline",
-      "languages": ["English", "Spanish"]
+      "available": "Mon-Sat: 9am-5:30pm",
+      "description": "Mental health helpline by NIMHANS Bangalore"
     },
     {
-      "name": "Postpartum Support International Helpline",
-      "type": "Maternal Mental Health",
-      "contact": "Call 800-944-4773 or text 503-894-9453",
-      "available": "24/7",
+      "name": "COOJ Mental Health Foundation",
+      "contact": "Call 0832-252-5304 or WhatsApp 983-025-0379",
       "cost": "Free",
-      "description": "Support for pregnancy and postpartum depression and anxiety",
-      "website": "https://www.postpartum.net"
+      "available": "Mon-Sat: 1pm-9pm",
+      "description": "Mental health helpline and counseling in Goa"
     },
     {
-      "name": "RAINN National Sexual Assault Hotline",
-      "type": "Trauma Support",
-      "contact": "Call 800-656-4673",
-      "available": "24/7",
+      "name": "MPower 1-on-1 Helpline",
+      "contact": "Call 1800-120-820-050",
       "cost": "Free",
-      "description": "Support for survivors of sexual assault",
-      "website": "https://www.rainn.org"
+      "available": "Mon-Sat: 10am-7pm",
+      "description": "Mental health helpline by Aditya Birla Education Trust"
     }
   ],
   
   "therapy_directories": [
     {
-      "name": "Psychology Today Therapist Finder",
-      "type": "Directory",
-      "cost": "Varies by therapist",
-      "description": "Find therapists in your area by specialty, insurance, and approach",
-      "website": "https://www.psychologytoday.com/us/therapists",
-      "filters": ["Insurance", "Specialty", "Approach", "Location", "Language"]
+      "name": "Psychowellness Center",
+      "type": "Mental Health Clinic Network",
+      "description": "Chain of mental health clinics across Delhi NCR and major cities",
+      "website": "https://www.psychowellnesscenter.com",
+      "contact": "Call 9999-449-977",
+      "locations": ["Delhi", "Faridabad", "Gurugram", "Noida"]
     },
     {
-      "name": "TherapyDen",
-      "type": "Inclusive Directory",
-      "cost": "Varies",
-      "description": "Therapist directory focusing on culturally responsive and affirming providers",
-      "website": "https://www.therapyden.com",
-      "filters": ["LGBTQ+ affirming", "POC", "Religion", "Specialty"]
+      "name": "Cadabams Hospitals",
+      "type": "Psychiatric Hospitals",
+      "description": "Mental health and psychiatric care facilities in Bangalore and Hyderabad",
+      "website": "https://www.cadabamshospitals.com",
+      "contact": "Call 9741-476-476",
+      "locations": ["Bangalore", "Hyderabad"]
     },
     {
-      "name": "Inclusive Therapists",
-      "type": "Directory",
-      "cost": "Varies",
-      "description": "Directory of social justice-oriented therapists",
-      "website": "https://www.inclusivetherapists.com"
+      "name": "Manastha",
+      "type": "Mental Health Clinics",
+      "description": "Network of mental health clinics in Maharashtra",
+      "website": "https://www.manastha.com",
+      "contact": "Call 8446-033-033",
+      "locations": ["Pune", "Mumbai"]
     }
   ],
   
   "medication_assistance": [
     {
-      "name": "GoodRx",
-      "type": "Prescription Discounts",
-      "cost": "Free to use",
-      "description": "Find coupons and compare prices for psychiatric medications",
-      "website": "https://www.goodrx.com"
+      "name": "Jan Aushadhi Kendra",
+      "type": "Government Generic Medicine",
+      "description": "Government stores selling generic medicines at 50-90% lower prices",
+      "cost": "50-90% cheaper than branded",
+      "website": "https://janaushadhi.gov.in",
+      "find": "Use store locator on website"
     },
     {
-      "name": "NeedyMeds",
-      "type": "Medication Assistance Database",
-      "cost": "Free",
-      "description": "Find patient assistance programs and discount cards for medications",
-      "website": "https://www.needymeds.org"
+      "name": "Ayushman Bharat (PM-JAY)",
+      "type": "Health Insurance Scheme",
+      "description": "Free health coverage up to ₹5 lakh for poor families",
+      "cost": "Free for eligible families",
+      "website": "https://pmjay.gov.in",
+      "coverage": "Mental health treatment covered"
+    },
+    {
+      "name": "Medicine Discount Apps",
+      "type": "Discount Programs",
+      "description": "Apps like 1mg, PharmEasy, Netmeds offer discounts on psychiatric medications",
+      "cost": "10-50% discounts",
+      "apps": ["1mg", "PharmEasy", "Netmeds", "Apollo 24x7"]
     }
   ]
 }

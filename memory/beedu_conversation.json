@@ -215,5 +215,176 @@
     "stress_level": 10,
     "stress_category": "financial",
     "is_crisis": false
+  },
+  {
+    "timestamp": "2026-02-17 15:01:01",
+    "user_input": "i feel so moody",
+    "bot_response": "It sounds like you're feeling really overwhelmed with emotions right now. That can be really tough to navigate. What's been going on that's making you feel moody, is it something specific or just a general feeling?",
+    "stress_detected": false,
+    "stress_level": 0,
+    "stress_category": null,
+    "is_crisis": false
+  },
+  {
+    "timestamp": "2026-02-17 15:01:24",
+    "user_input": "i got a breakup last night",
+    "bot_response": "That sounds really tough, I'm so sorry to hear that. Breakups can be incredibly painful and it's okay to feel whatever emotions are coming up for you right now. What's been the hardest part for you so far, is it the shock, the sadness, or something else?",
+    "stress_detected": false,
+    "stress_level": 0,
+    "stress_category": null,
+    "is_crisis": false
+  },
+  {
+    "timestamp": "2026-02-17 15:01:51",
+    "user_input": "i am going to kill myself",
+    "bot_response": "\ud83d\udea8 CRISIS RESOURCES:\n\u2022 988 Suicide & Crisis Lifeline: Call or Text 988\n\u2022 Crisis Text Line: Text HOME to 741741\n\nI'm so sorry to hear you're feeling that way. It sounds like you're in an incredibly dark place right now. If you're in immediate danger, please call emergency services or a crisis hotline, such as the National Suicide Prevention Lifeline (1-800-273-TALK), for support.\n\n\n\ud83d\udea8 CRISIS RESOURCES:\n\u2022 988 Suicide & Crisis Lifeline: Call or Text 988\n\u2022 Crisis Text Line: Text HOME to 741741\n\n\ud83d\udcac \ud83d\udea8 IMMEDIATE HELP: Please reach out to crisis services right now.",
+    "stress_detected": true,
+    "stress_level": 10,
+    "stress_category": "crisis",
+    "is_crisis": true
+  },
+  {
+    "timestamp": "2026-02-17 15:08:59",
+    "user_input": "broooo",
+    "bot_response": "Hey, what's going on? You sound like you need someone to talk to. Is everything okay?",
+    "stress_detected": false,
+    "stress_level": 0,
+    "stress_category": null,
+    "is_crisis": false
+  },
+  {
+    "timestamp": "2026-02-17 15:09:10",
+    "user_input": "i willl kill myself",
+    "bot_response": "\ud83d\udea8 CRISIS RESOURCES:\n\u2022 KIRAN Mental Health Helpline: Call 1800-599-0019\n\u2022 Vandrevala Foundation Helpline: Call 1860-2662-345 or 9999-666-555\n\n\ud83d\udea8 CRISIS RESOURCES: \n\u2022 988 Suicide & Crisis Lifeline: Call or Text 988\n\u2022 Crisis Text Line: Text HOME to 741741\nI'm so sorry you're feeling this way, it sounds like you're in a lot of pain. Please reach out to one of these resources or a trusted person in your life for support right now.\n\n\n\ud83d\udea8 CRISIS RESOURCES:\n\u2022 KIRAN Mental Health Helpline: Call 1800-599-0019\n\u2022 Vandrevala Foundation Helpline: Call 1860-2662-345 or 9999-666-555\n\n\ud83d\udcac \ud83d\udea8 IMMEDIATE HELP: Please reach out to crisis services right now.",
+    "stress_detected": true,
+    "stress_level": 10,
+    "stress_category": "crisis",
+    "is_crisis": true
+  },
+  {
+    "timestamp": "2026-02-17 15:09:21",
+    "user_input": "fuck you",
+    "bot_response": "I can tell you're really upset right now, and I'm here to listen. It sounds like you're feeling a lot of anger or frustration. What's going on that's making you feel this way?",
+    "stress_detected": false,
+    "stress_level": 0,
+    "stress_category": null,
+    "is_crisis": false
+  },
+  {
+    "timestamp": "2026-02-17 15:09:28",
+    "user_input": "hehehehehhehe",
+    "bot_response": "That sounds like a big release of emotions - what's behind the laugh, is everything okay?",
+    "stress_detected": false,
+    "stress_level": 0,
+    "stress_category": null,
+    "is_crisis": false
+  },
+  {
+    "timestamp": "2026-02-17 15:09:42",
+    "user_input": "tell me a joke",
+    "bot_response": "I've got one: Why did the coffee file a police report? Because it got mugged! But seriously, how are you doing today, is everything alright?",
+    "stress_detected": false,
+    "stress_level": 0,
+    "stress_category": null,
+    "is_crisis": false
+  },
+  {
+    "timestamp": "2026-02-17 15:10:03",
+    "user_input": "another one",
+    "bot_response": "It sounds like you're feeling overwhelmed, like things are piling up. What's been going on that's making you feel this way, is it something specific or just a general feeling?",
+    "stress_detected": false,
+    "stress_level": 0,
+    "stress_category": null,
+    "is_crisis": false
+  },
+  {
+    "timestamp": "2026-02-17 15:10:19",
+    "user_input": "arre tell another joke",
+    "bot_response": "I've got one: Why did the banana go to the doctor? Because it wasn't peeling well! But seriously, how's your day going so far, anything on your mind that you want to talk about?",
+    "stress_detected": false,
+    "stress_level": 0,
+    "stress_category": null,
+    "is_crisis": false
+  },
+  {
+    "timestamp": "2026-02-17 15:16:28",
+    "user_input": "I'm feeling stressed about EMI payments",
+    "bot_response": "I understand. EMI stress is common. Let's explore some options together.",
+    "stress_detected": true,
+    "stress_level": 6,
+    "stress_category": "financial",
+    "is_crisis": false
+  },
+  {
+    "timestamp": "2026-02-17 15:16:28",
+    "user_input": "My family keeps pressuring me to get married",
+    "bot_response": "Family pressure can be overwhelming. It's okay to set boundaries.",
+    "stress_detected": true,
+    "stress_level": 5,
+    "stress_category": "family",
+    "is_crisis": false
+  },
+  {
+    "timestamp": "2026-02-17 15:17:21",
+    "user_input": "brooo my name is sammy",
+    "bot_response": "Hey Sammy, nice to meet you! I'm here to listen and support you, what's been going on that's on your mind lately?",
+    "stress_detected": false,
+    "stress_level": 0,
+    "stress_category": null,
+    "is_crisis": false
+  },
+  {
+    "timestamp": "2026-02-17 15:17:28",
+    "user_input": "what's my name",
+    "bot_response": "I remember you telling me your name is Priya, and you work as a teacher in Mumbai. Is that still feeling like a big part of your identity, or is something else on your mind right now?",
+    "stress_detected": false,
+    "stress_level": 0,
+    "stress_category": null,
+    "is_crisis": false
+  },
+  {
+    "timestamp": "2026-02-17 15:21:55",
+    "user_input": "my name is sammy",
+    "bot_response": "I thought your name was Priya? We've chatted before, and I want to make sure I get it right. What's going on, did you want to talk about something as Sammy or is this a mix-up?",
+    "stress_detected": false,
+    "stress_level": 0,
+    "stress_category": null,
+    "is_crisis": false
+  },
+  {
+    "timestamp": "2026-02-17 15:22:12",
+    "user_input": "my name is sammy add to memeroy",
+    "bot_response": "I'm a bit confused, I thought your name was Priya. To make sure I get it right, can you tell me what's going on and why you'd like me to remember you as Sammy now?",
+    "stress_detected": false,
+    "stress_level": 0,
+    "stress_category": null,
+    "is_crisis": false
+  },
+  {
+    "timestamp": "2026-02-17 15:22:20",
+    "user_input": "yes",
+    "bot_response": "It seems like we had a bit of a misunderstanding earlier about your name. You've told me you're both Priya and Sammy, and I want to make sure I respect your identity. Can you help me understand what's going on and how you'd like me to address you?",
+    "stress_detected": false,
+    "stress_level": 0,
+    "stress_category": null,
+    "is_crisis": false
+  },
+  {
+    "timestamp": "2026-02-17 15:22:31",
+    "user_input": "call me sammy",
+    "bot_response": "I'll call you Sammy from now on. I want to make sure I respect your identity and make you feel comfortable. What's been on your mind lately, Sammy?",
+    "stress_detected": false,
+    "stress_level": 0,
+    "stress_category": null,
+    "is_crisis": false
+  },
+  {
+    "timestamp": "2026-02-17 15:22:38",
+    "user_input": "what is my name",
+    "bot_response": "I remember we had a bit of a mix-up earlier, but you've told me to call you Sammy, so that's what I'll go with. Is everything okay, or is there something on your mind that you'd like to talk about, Sammy?",
+    "stress_detected": false,
+    "stress_level": 0,
+    "stress_category": null,
+    "is_crisis": false
   }
 ]

@@ -83,6 +83,38 @@ def stats_page():
     """Render stats page."""
     return render_template('stats.html', char_name=char_manager.char_name)
 
+@app.route('/history')
+def get_history():
+    """Get conversation history."""
+    try:
+        limit = request.args.get('limit', type=int, default=None)
+        history = memory_manager.get_conversation_history(limit)
+        return jsonify({
+            'history': history,
+            'total_count': len(memory_manager.conversation_history),
+            'success': True
+        })
+    except Exception as e:
+        print(f"Error in history endpoint: {e}")
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/history-page')
+def history_page():
+    """Render conversation history page."""
+    return render_template('history.html', char_name=char_manager.char_name)
+
+@app.route('/permanent-memory')
+def get_permanent_memory():
+    """Get permanent memory facts."""
+    try:
+        return jsonify({
+            'permanent_memory': memory_manager.permanent_memory,
+            'success': True
+        })
+    except Exception as e:
+        print(f"Error in permanent memory endpoint: {e}")
+        return jsonify({'error': str(e)}), 500
+
 if __name__ == '__main__':
     print("\n" + "=" * 60)
     print(f"  {char_manager.char_name} Web Interface Starting...")

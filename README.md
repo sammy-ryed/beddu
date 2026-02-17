@@ -1,6 +1,21 @@
-# Beedu - Holistic Mental Health & Financial Stress Support Companion
+# Beedu - Mental Health & Financial Stress Support Companion for India 🇮🇳
 
-An AI-powered mental health companion designed for the hackathon challenge. Beedu provides empathetic support for mental health and financial stress, detects stress patterns, offers coping resources, and tracks improvement over time.
+An AI-powered mental health companion designed specifically for India. Beedu provides empathetic support for mental health and financial stress, detects stress patterns, offers Indian-specific coping resources, and tracks improvement over time.
+
+## 🇮🇳 India-Specific Features
+
+**Culturally Aware Support:**
+- Understands Indian family dynamics and societal pressures
+- Recognizes India-specific financial stress (EMI, lakhs, salary delays)
+- Provides resources in Indian context (KIRAN helpline, PMAY, MGNREGA)
+- Aware of mental health stigma in Indian society
+- Offers judgment-free, confidential support
+
+**Indian Resources:**
+- 🚨 Crisis Helplines: KIRAN (1800-599-0019), Vandrevala Foundation, iCall, Aasra
+- 🧠 Mental Health: Practo Mind, YourDOST, NIMHANS, TISS counseling
+- 💰 Financial Help: PMAY, MUDRA loans, MGNREGA, Jan Dhan Yojana, PDS
+- 📋 Government Schemes: PM Kisan, Ayushman Bharat, Atal Pension Yojana
 
 ## ✨ NEW: Advanced Features (v2.0)
 
@@ -25,13 +40,25 @@ An AI-powered mental health companion designed for the hackathon challenge. Beed
    - Conversation history tracking & trend analysis
    - 9-step detection process
 
-**UX Enhancement:**
+**UX Enhancements:**
 
 4. **💡 Collapsible Coping Tips** (v2.1)
    - Tips hidden behind "Want a tip to help with stress?" buttons
    - Click to reveal full instructions
    - Cleaner interface, mobile-friendly
-   - [See Demo](COLLAPSIBLE_TIPS.md)
+
+5. **🧠 Intelligent Memory System** (v2.2) - NEW!
+   - **Permanent Memory**: Remembers key facts about you (name, job, family, recurring issues)
+   - **Memory Updates**: Just like ChatGPT - can update/correct stored information:
+     - "Actually, my name is Priya" → Updates your name
+     - "Update memory: I'm a teacher now" → Updates your job
+     - "Correction: I have 3 children" → Updates family info
+     - "I don't work as X anymore, I'm Y" → Smart job updates
+   - **Chat Memory**: Uses previous conversations for better context
+   - **Conversation History Viewer**: Browse all past chats with filters (stress/crisis/all)
+   - **Session Persistence**: See your last 10 conversations when you reopen
+   - **What I Remember** page: View all facts beedu has learned about you
+   - Provides more personalized support over time
 
 📖 **[See Full Documentation](ADVANCED_FEATURES.md)** for detailed technical specs
 

@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const sendButton = document.getElementById('send-button');
     const chatMessages = document.getElementById('chat-messages');
     
+    // Load previous conversations on page load
+    loadPreviousConversations();
+    
     // Focus on input field
     userInput.focus();
     
@@ -146,6 +149,49 @@ document.addEventListener('DOMContentLoaded', () => {
     
     function scrollToBottom() {
         chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    
+    function loadPreviousConversations() {
+        // Load last 10 conversations to show context
+        fetch('/history?limit=10')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success && data.history && data.history.length > 0) {
+                    // Clear only the initial greeting (keep just the first message)
+                    const firstMessage = chatMessages.firstElementChild;
+                    
+                    // Add a separator
+                    const separator = document.createElement('div');
+                    separator.className = 'history-separator';
+                    separator.innerHTML = '<small style="color: #999; text-align: center; display: block; margin: 20px 0;">— Previous Conversations —</small>';
+                    chatMessages.appendChild(separator);
+                    
+                    // Add previous conversations
+                    data.history.forEach(conv => {
+                        const userMsgDiv = document.createElement('div');
+                        userMsgDiv.className = 'message user-message history-message';
+                        userMsgDiv.innerHTML = `<strong>You:</strong> ${escapeHtml(conv.user_input)}`;
+                        chatMessages.appendChild(userMsgDiv);
+                        
+                        const botMsgDiv = document.createElement('div');
+                        botMsgDiv.className = 'message bot-message history-message';
+                        botMsgDiv.innerHTML = `<strong>beedu:</strong> ${escapeHtml(conv.bot_response)}`;
+                        chatMessages.appendChild(botMsgDiv);
+                    });
+                    
+                    // Add another separator
+                    const separator2 = document.createElement('div');
+                    separator2.className = 'history-separator';
+                    separator2.innerHTML = '<small style="color: #999; text-align: center; display: block; margin: 20px 0;">— Current Session —</small>';
+                    chatMessages.appendChild(separator2);
+                    
+                    scrollToBottom();
+                }
+            })
+            .catch(error => {
+                console.log('Could not load previous conversations:', error);
+                // Silently fail - not critical
+            });
     }
     
     function escapeHtml(text) {

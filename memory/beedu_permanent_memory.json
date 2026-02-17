@@ -1,0 +1,32 @@
+{
+  "facts": [
+    {
+      "fact": "User's name is Priya",
+      "category": "identity",
+      "timestamp": "2026-02-17 15:21:27",
+      "mentioned_count": 2,
+      "updated_from": "User's name is Rahul"
+    },
+    {
+      "fact": "User mentioned: Correction: I don't work as a teacher, I'm a doctor",
+      "category": "work",
+      "timestamp": "2026-02-17 15:21:27",
+      "mentioned_count": 2,
+      "updated_from": "User mentioned: I work as a software engineer"
+    },
+    {
+      "fact": "User update: I'm now a teacher, not a software engineer",
+      "category": "general",
+      "timestamp": "2026-02-17 15:21:27",
+      "mentioned_count": 1
+    },
+    {
+      "fact": "User update: Actually I have 3 children, not 2",
+      "category": "general",
+      "timestamp": "2026-02-17 15:21:27",
+      "mentioned_count": 1
+    }
+  ],
+  "preferences": {},
+  "important_dates": {}
+}

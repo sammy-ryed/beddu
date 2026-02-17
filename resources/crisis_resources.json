@@ -1,79 +1,79 @@
 {
   "crisis_hotlines": [
     {
-      "name": "988 Suicide & Crisis Lifeline",
-      "contact": "Call or Text 988",
+      "name": "KIRAN Mental Health Helpline",
+      "contact": "Call 1800-599-0019",
       "available": "24/7",
-      "type": "Crisis Support",
-      "description": "Free, confidential crisis support for people in suicidal crisis or emotional distress",
-      "website": "https://988lifeline.org",
-      "languages": ["English", "Spanish"],
-      "serves": "Nationwide USA"
-    },
-    {
-      "name": "Crisis Text Line",
-      "contact": "Text HOME to 741741",
-      "available": "24/7",
-      "type": "Crisis Support",
-      "description": "Free 24/7 crisis support via text message",
-      "website": "https://www.crisistextline.org",
-      "languages": ["English"],
-      "serves": "Nationwide USA, Canada, UK"
-    },
-    {
-      "name": "NAMI HelpLine",
-      "contact": "Call 800-950-6264 or text 62640",
-      "available": "Mon-Fri 10am-10pm ET",
       "type": "Mental Health Crisis",
-      "description": "National Alliance on Mental Illness helpline for crisis support and information",
-      "website": "https://www.nami.org/help",
-      "languages": ["English", "Spanish"],
-      "serves": "Nationwide USA"
+      "description": "Government of India's national mental health helpline for suicide prevention and crisis support",
+      "website": "https://www.mohfw.gov.in",
+      "languages": ["Hindi", "English", "13+ Regional Languages"],
+      "serves": "Pan-India"
     },
     {
-      "name": "Veterans Crisis Line",
-      "contact": "Call 988 then press 1, or text 838255",
+      "name": "Vandrevala Foundation Helpline",
+      "contact": "Call 1860-2662-345 or 9999-666-555",
       "available": "24/7",
-      "type": "Veterans Crisis",
-      "description": "Crisis support specifically for veterans and their families",
-      "website": "https://www.veteranscrisisline.net",
-      "languages": ["English", "Spanish"],
-      "serves": "US Veterans"
+      "type": "Crisis Support",
+      "description": "Free 24/7 mental health crisis support and counseling",
+      "website": "https://www.vandrevalafoundation.com",
+      "languages": ["Hindi", "English", "Regional Languages"],
+      "serves": "Pan-India"
     },
     {
-      "name": "Trevor Project",
-      "contact": "Call 866-488-7386 or text START to 678-678",
+      "name": "iCall - TISS Mumbai",
+      "contact": "Call 9152-987-821",
+      "available": "Mon-Sat: 8am-10pm",
+      "type": "Psychosocial Counseling",
+      "description": "Professional counseling service by Tata Institute of Social Sciences",
+      "website": "https://icallhelpline.org",
+      "languages": ["Hindi", "English", "Marathi", "Tamil"],
+      "serves": "Pan-India"
+    },
+    {
+      "name": "Sumaitri Delhi",
+      "contact": "Call 011-2338-9090",
+      "available": "2pm-10pm Daily",
+      "type": "Suicide Prevention",
+      "description": "Emotional support and suicide prevention helpline in Delhi",
+      "website": "https://www.sumaitri.net",
+      "languages": ["Hindi", "English"],
+      "serves": "Delhi NCR"
+    },
+    {
+      "name": "Aasra Mumbai",
+      "contact": "Call 91-9820-466-726",
       "available": "24/7",
-      "type": "LGBTQ+ Youth Crisis",
-      "description": "Crisis support for LGBTQ+ young people under 25",
-      "website": "https://www.thetrevorproject.org",
-      "languages": ["English", "Spanish"],
-      "serves": "LGBTQ+ Youth USA"
+      "type": "Suicide Prevention",
+      "description": "Crisis intervention and suicide prevention center",
+      "website": "http://www.aasra.info",
+      "languages": ["Hindi", "English", "Marathi"],
+      "serves": "Pan-India"
     },
     {
       "name": "Emergency Services",
-      "contact": "Call 911",
+      "contact": "Call 112",
       "available": "24/7",
       "type": "Emergency",
-      "description": "For immediate life-threatening emergencies",
-      "serves": "USA"
+      "description": "National emergency helpline for police, ambulance, and fire services",
+      "serves": "Pan-India"
     }
   ],
   
   "crisis_online_resources": [
     {
-      "name": "IMAlive Crisis Chat",
-      "type": "Online Chat",
-      "available": "Daily",
-      "description": "Online crisis chat staffed by trained volunteers",
-      "website": "https://www.imalive.org"
+      "name": "Mann Talks - Shyft App",
+      "type": "Mental Health App",
+      "available": "24/7",
+      "description": "Government-backed mental health app with crisis support and resources",
+      "website": "https://www.shyft.to"
     },
     {
-      "name": "7 Cups Emotional Support",
-      "type": "Peer Support Chat",
+      "name": "White Swan Foundation",
+      "type": "Online Resource",
       "available": "24/7",
-      "description": "Free emotional support from trained listeners",
-      "website": "https://www.7cups.com"
+      "description": "Mental health information, support resources, and helpline directory for India",
+      "website": "https://www.whiteswanfoundation.org"
     }
   ]
 }
