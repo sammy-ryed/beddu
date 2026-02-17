@@ -1,0 +1,17 @@
+# Core AI Dependencies
+openai==0.28.0          # LLM API (pinned to 0.28 for HyperDB compatibility)
+tiktoken                # Token counting for OpenAI models
+sentence-transformers   # Sentence embeddings and semantic search
+
+# Memory & Search Tools
+bm25s                   # BM25 ranking for information retrieval
+pystemmer               # Stem words for text processing
+hyperdb                 # High-performance database library (use: pip install git+https://github.com/jdagdelen/hyperDB.git)
+scikit-learn            # Predictive data analysis tools
+flashrank               # Lightweight re-ranker
+
+# Utilities
+requests                # HTTP library for API interactions
+python-dotenv           # Load environment variables from a .env file
+numpy                   # Numerical operations
+joblib                  # Efficient serialization
