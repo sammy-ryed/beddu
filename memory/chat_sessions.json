@@ -1,0 +1,29 @@
+{
+  "sessions": [
+    {
+      "id": "1fc41ea5-a0b9-486b-bf02-f9d28e4bf14e",
+      "title": "Chat 3",
+      "created_at": "2026-02-17 16:18:39",
+      "last_message_at": "2026-02-17 16:18:39",
+      "message_count": 0,
+      "preview": ""
+    },
+    {
+      "id": "100775cb-f953-4253-b5a4-e985f8a20523",
+      "title": "Chat 2",
+      "created_at": "2026-02-17 15:48:19",
+      "last_message_at": "2026-02-17 15:48:19",
+      "message_count": 0,
+      "preview": ""
+    },
+    {
+      "id": "80170c4d-fbb8-446e-9546-38a7a0104d7f",
+      "title": "New Chat",
+      "created_at": "2026-02-17 15:43:32",
+      "last_message_at": "2026-02-17 15:43:32",
+      "message_count": 0,
+      "preview": ""
+    }
+  ],
+  "current_session_id": "1fc41ea5-a0b9-486b-bf02-f9d28e4bf14e"
+}

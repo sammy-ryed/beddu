@@ -57,7 +57,8 @@ def build_prompt(user_prompt, character_manager, memory_manager, config, stress_
         
         if is_crisis:
             base_prompt += "🚨 CRISIS DETECTED\n"
-            base_prompt += "YOUR RESPONSE: Keep it SHORT (2-3 sentences). Express immediate concern and empathy. Crisis resources will be shown above your message.\n"
+            base_prompt += "YOUR RESPONSE: Keep it SHORT (2-3 sentences max). Express immediate concern and empathy.\n"
+            base_prompt += "IMPORTANT: DO NOT include crisis hotline numbers in your response - they are automatically added above your message.\n"
         elif stress_level >= 7:
             base_prompt += "High stress - Be extra gentle. Keep response brief (2-4 sentences max).\n"
         elif stress_level >= 4:

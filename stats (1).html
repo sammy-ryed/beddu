@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Beedu – Companion</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    /* ══════════════════════════════════════════
+       TOKENS
+    ══════════════════════════════════════════ */
+    :root {
+      --m:     #5b6ef5;   /* mental blue */
+      --ml:    #eef0ff;
+      --f:     #f0900a;   /* financial orange */
+      --fl:    #fff5e6;
+      --low:   #22c55e;
+      --med:   #f59e0b;
+      --hi:    #ef4444;
+      --ink:   #0f0f10;
+      --sub:   #6b7280;
+      --line:  #e5e7eb;
+      --bg:    #f7f7f8;
+      --w:     #ffffff;
+      --lsw:   260px;   /* left sidebar width */
+      --rsw:   400px;   /* right sidebar width */
+      --tbh:   58px;    /* topbar height */
+    }
+
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    html, body { height:100%; overflow:hidden; }
+
+    body {
+      font-family: 'Instrument Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ══════════════════════════════════════════
+       TOP BAR
+    ══════════════════════════════════════════ */
+    .topbar {
+      height: var(--tbh);
+      flex-shrink: 0;
+      background: var(--w);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 8px;
+      z-index: 200;
+    }
+
+    .topbar-logo {
+      font-family: 'Fraunces', serif;
+      font-weight: 700; font-size: 1.4rem;
+      letter-spacing: -.02em;
+      color: var(--m);
+      margin-right: auto;
+      transition: opacity .15s;
+    }
+    .topbar-logo:hover { opacity: .75; }
+    .topbar-logo span { color: var(--f); }
+
+    .tab-btn {
+      display: flex; align-items: center; gap: 6px;
+      padding: 7px 14px; border-radius: 9px;
+      border: 1.5px solid transparent;
+      font-family: inherit; font-size: .8rem; font-weight: 600;
+      cursor: pointer; transition: all .17s;
+      background: transparent; color: var(--sub);
+      white-space: nowrap;
+    }
+    .tab-btn .dot { width:7px; height:7px; border-radius:50%; }
+    .tab-btn.am { background:var(--ml); border-color:var(--m); color:var(--m); }
+    .tab-btn.af { background:var(--fl); border-color:var(--f); color:var(--f); }
+    .tab-btn:not(.am):not(.af):hover { background:var(--bg); border-color:var(--line); color:var(--ink); }
+
+    /* ══════════════════════════════════════════
+       APP BODY
+    ══════════════════════════════════════════ */
+    .app-body {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* ══════════════════════════════════════════
+       LEFT SIDEBAR — CHAT HISTORY (auto-hide)
+    ══════════════════════════════════════════ */
+    .left-sidebar {
+      width: 52px;               /* collapsed: icon strip */
+      flex-shrink: 0;
+      background: var(--w);
+      border-right: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: width .28s cubic-bezier(.4,0,.2,1),
+                  box-shadow .28s;
+      position: relative;
+      z-index: 10;
+    }
+    .left-sidebar:hover,
+    .left-sidebar.ls-pinned {
+      width: var(--lsw);
+      box-shadow: 4px 0 20px rgba(0,0,0,.07);
+    }
+
+    /* collapsed icon strip */
+    .ls-collapsed-icons {
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 52px; display: flex; flex-direction: column;
+      align-items: center; gap: 6px; padding: 14px 0;
+      pointer-events: none;      /* let hover reach parent */
+    }
+    .ls-icon-btn {
+      width: 36px; height: 36px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; color: var(--sub);
+      background: transparent; border: none;
+      transition: background .15s, color .15s; cursor: pointer;
+      pointer-events: all;
+    }
+    .ls-icon-btn:hover { background: var(--bg); color: var(--ink); }
+    .ls-icon-btn.new-ic { background: var(--ml); color: var(--m); }
+    .ls-icon-btn.new-ic:hover { background: var(--m); color:#fff; }
+
+    /* full content fades in on expand */
+    .ls-full {
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: var(--lsw);
+      display: flex; flex-direction: column;
+      opacity: 0; pointer-events: none;
+      transition: opacity .2s .05s;
+    }
+    .left-sidebar:hover .ls-full,
+    .left-sidebar.ls-pinned .ls-full {
+      opacity: 1; pointer-events: all;
+    }
+    .left-sidebar:hover .ls-collapsed-icons,
+    .left-sidebar.ls-pinned .ls-collapsed-icons { opacity: 0; }
+    .ls-collapsed-icons { transition: opacity .15s; }
+
+    .ls-head {
+      padding: 14px 14px 10px;
+      border-bottom: 1px solid var(--line);
+      flex-shrink: 0;
+    }
+    .ls-head-row {
+      display: flex; align-items: center;
+      justify-content: space-between; margin-bottom: 10px;
+    }
+    .ls-title {
+      font-size: .7rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .07em;
+      color: var(--sub);
+    }
+
+    .new-chat-btn {
+      display: flex; align-items: center; gap: 5px;
+      padding: 5px 11px; border-radius: 8px;
+      border: 1.5px solid var(--m);
+      background: var(--ml); color: var(--m);
+      font-family: inherit; font-size: .77rem; font-weight: 600;
+      cursor: pointer; transition: all .15s;
+    }
+    .new-chat-btn:hover { background: var(--m); color: #fff; }
+
+    /* search box */
+    .ls-search { position: relative; }
+    .ls-search input {
+      width: 100%; padding: 7px 10px 7px 30px;
+      border: 1.5px solid var(--line); border-radius: 8px;
+      background: var(--bg); font-family: inherit;
+      font-size: .8rem; color: var(--ink); outline: none;
+      transition: border-color .17s;
+    }
+    .ls-search input:focus { border-color: var(--m); }
+    .ls-search input::placeholder { color: var(--sub); }
+    .ls-search-icon {
+      position: absolute; left: 9px; top: 50%;
+      transform: translateY(-50%); color: var(--sub);
+      font-size: .82rem; pointer-events: none;
+    }
+
+    /* session list */
+    .session-list {
+      flex: 1; overflow-y: auto; padding: 6px 8px;
+    }
+    .session-list::-webkit-scrollbar { width: 4px; }
+    .session-list::-webkit-scrollbar-thumb { background: var(--line); border-radius: 99px; }
+
+    .session-group-label {
+      font-size: .67rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .07em;
+      color: var(--sub); padding: 9px 6px 3px;
+    }
+
+    .session-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 9px 10px; border-radius: 10px;
+      cursor: pointer; transition: background .15s;
+      margin-bottom: 2px; position: relative;
+    }
+    .session-item:hover { background: var(--bg); }
+    .session-item.active { background: var(--ml); }
+
+    .session-icon {
+      width: 30px; height: 30px; flex-shrink: 0;
+      border-radius: 8px; display: flex; align-items: center;
+      justify-content: center; font-size: .95rem;
+    }
+    .si-mental    { background: var(--ml); }
+    .si-financial { background: var(--fl); }
+    .si-mixed     { background: #f0f0ff; }
+
+    .session-info { flex: 1; min-width: 0; }
+    .session-name {
+      font-size: .82rem; font-weight: 600;
+      color: var(--ink); white-space: nowrap;
+      overflow: hidden; text-overflow: ellipsis;
+    }
+    .session-item.active .session-name { color: var(--m); }
+    .session-preview {
+      font-size: .72rem; color: var(--sub);
+      white-space: nowrap; overflow: hidden;
+      text-overflow: ellipsis; margin-top: 1px;
+    }
+    .session-time {
+      font-size: .67rem; color: var(--sub);
+      flex-shrink: 0; padding-top: 2px;
+    }
+
+    /* delete btn on hover */
+    .session-del {
+      display: none; position: absolute;
+      right: 8px; top: 50%; transform: translateY(-50%);
+      width: 22px; height: 22px; border-radius: 6px;
+      border: none; background: transparent;
+      color: var(--sub); cursor: pointer; font-size: .82rem;
+      align-items: center; justify-content: center;
+      transition: background .12s, color .12s;
+    }
+    .session-item:hover .session-del { display: flex; }
+    .session-del:hover { background: #fee2e2; color: var(--hi); }
+
+    /* ══════════════════════════════════════════
+       CENTER — CHAT PANEL
+    ══════════════════════════════════════════ */
+    .chat-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      min-width: 0;
+      transition: background .5s ease;
+    }
+
+    /* ── MENTAL theme (calm blue-lavender) ── */
+    .chat-panel.theme-mental {
+      background: linear-gradient(160deg, #eef0ff 0%, #f5f3ff 40%, #eff6ff 100%);
+    }
+    .chat-panel.theme-mental .chat-header       { background: rgba(238,240,255,.85); border-bottom-color: #c7d2fe; }
+    .chat-panel.theme-mental .chat-messages      { background: transparent; }
+    .chat-panel.theme-mental .chat-input-bar     { background: rgba(238,240,255,.92); border-top-color: #c7d2fe; }
+    .chat-panel.theme-mental .input-wrap         { background: rgba(255,255,255,.75); border-color: #c7d2fe; }
+    .chat-panel.theme-mental .input-wrap:focus-within { border-color: var(--m); box-shadow: 0 0 0 3px rgba(91,110,245,.12); }
+    .chat-panel.theme-mental .send-btn           { background: var(--m); }
+    .chat-panel.theme-mental .bubble.bot         { background: rgba(255,255,255,.85); border-color: #c7d2fe; }
+    .chat-panel.theme-mental .bubble.user        { background: var(--m); }
+    .chat-panel.theme-mental .avatar.bee         { background: linear-gradient(135deg,#5b6ef5,#9061f9); }
+    .chat-panel.theme-mental .typing span        { background: #c7d2fe; }
+    .chat-panel.theme-mental .chat-messages::-webkit-scrollbar-thumb { background: #c7d2fe; }
+    /* subtle wave bg on messages */
+    .chat-panel.theme-mental .chat-messages::before {
+      content:''; position:sticky; top:0; display:block;
+      height:0; /* decorative only via gradient bg */
+    }
+
+    /* ── FINANCIAL theme (warm orange) ── */
+    .chat-panel.theme-financial {
+      background: linear-gradient(160deg, #fff7ed 0%, #fff3e0 40%, #fef9f0 100%);
+    }
+    .chat-panel.theme-financial .chat-header       { background: rgba(255,247,237,.88); border-bottom-color: #fed7aa; }
+    .chat-panel.theme-financial .chat-messages      { background: transparent; }
+    .chat-panel.theme-financial .chat-input-bar     { background: rgba(255,247,237,.92); border-top-color: #fed7aa; }
+    .chat-panel.theme-financial .input-wrap         { background: rgba(255,255,255,.75); border-color: #fed7aa; }
+    .chat-panel.theme-financial .input-wrap:focus-within { border-color: var(--f); box-shadow: 0 0 0 3px rgba(240,144,10,.12); }
+    .chat-panel.theme-financial .send-btn           { background: var(--f); }
+    .chat-panel.theme-financial .bubble.bot         { background: rgba(255,255,255,.85); border-color: #fed7aa; }
+    .chat-panel.theme-financial .bubble.user        { background: var(--f); }
+    .chat-panel.theme-financial .avatar.bee         { background: linear-gradient(135deg,#f0900a,#f59e0b); }
+    .chat-panel.theme-financial .typing span        { background: #fed7aa; }
+    .chat-panel.theme-financial .chat-messages::-webkit-scrollbar-thumb { background: #fed7aa; }
+
+    /* theme indicator pill in header */
+    .theme-pill {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 3px 10px; border-radius: 99px;
+      font-size: .72rem; font-weight: 700;
+      opacity: 0; transform: translateY(-4px);
+      transition: opacity .35s, transform .35s;
+    }
+    .theme-pill.show { opacity:1; transform:translateY(0); }
+    .theme-pill.mental    { background: var(--ml); color: var(--m); }
+    .theme-pill.financial { background: var(--fl); color: var(--f); }
+
+    /* chat header strip (shows active session name) */
+    .chat-header {
+      flex-shrink: 0;
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--line);
+      background: var(--w);
+      display: flex; align-items: center; gap: 10px;
+      transition: background .5s ease, border-color .5s ease;
+    }
+    .chat-header-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1rem; font-weight: 600;
+      color: var(--ink); flex: 1;
+    }
+    .chat-header-sub {
+      font-size: .75rem; color: var(--sub);
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 0 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      scroll-behavior: smooth;
+      transition: background .5s ease;
+    }
+    .chat-messages::-webkit-scrollbar { width: 5px; }
+    .chat-messages::-webkit-scrollbar-thumb { background: var(--line); border-radius: 99px; transition: background .5s; }
+
+    .msg-row {
+      display: flex; align-items: flex-end; gap: 9px;
+      padding: 0 20px;
+      animation: msgIn .26s ease both;
+    }
+    @keyframes msgIn {
+      from { opacity:0; transform:translateY(10px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .msg-row.user { flex-direction: row-reverse; }
+
+    .avatar {
+      width: 32px; height: 32px; border-radius: 10px;
+      flex-shrink: 0; display: flex; align-items: center;
+      justify-content: center; font-size: 1rem;
+      transition: background .5s ease;
+    }
+    .avatar.bee     { background: linear-gradient(135deg,#5b6ef5,#9061f9); color:#fff; }
+    .avatar.user-av { background: #e5e7eb; font-size:.75rem; font-weight:700; color:var(--sub); }
+
+    .bubble {
+      max-width: 70%; padding: 12px 16px;
+      border-radius: 16px; font-size: .91rem; line-height: 1.6;
+      transition: background .4s ease, border-color .4s ease;
+    }
+    .bubble.bot {
+      background: var(--w); border: 1px solid var(--line);
+      border-bottom-left-radius: 4px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.05);
+    }
+    .bubble.user {
+      background: var(--m); color: #fff;
+      border-bottom-right-radius: 4px;
+      transition: background .4s ease;
+    }
+
+    .btag {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: .7rem; font-weight: 600;
+      padding: 2px 8px; border-radius: 99px; margin-bottom: 5px;
+    }
+    .btag.mental    { background:var(--ml); color:var(--m); }
+    .btag.financial { background:var(--fl); color:var(--f); }
+
+    /* typing dots */
+    .typing { display:flex; gap:5px; padding:3px 0; }
+    .typing span {
+      width:7px; height:7px; border-radius:50%; background:var(--line);
+      animation:bounce .9s infinite;
+      transition: background .4s ease;
+    }
+    .typing span:nth-child(2) { animation-delay:.2s; }
+    .typing span:nth-child(3) { animation-delay:.4s; }
+    @keyframes bounce {
+      0%,60%,100% { transform:translateY(0); }
+      30%          { transform:translateY(-6px); }
+    }
+
+    /* disclaimer */
+    .disclaimer {
+      text-align:center; font-size:.7rem;
+      color:var(--sub); padding:6px 20px 0; line-height:1.5;
+    }
+
+    /* input bar */
+    .chat-input-bar {
+      flex-shrink: 0;
+      border-top: 1px solid var(--line);
+      background: var(--w);
+      padding: 12px 16px;
+      display: flex; gap: 8px; align-items: flex-end;
+      transition: background .5s ease, border-color .5s ease;
+    }
+    .input-wrap {
+      flex: 1; display:flex; align-items:flex-end;
+      background: var(--bg); border: 1.5px solid var(--line);
+      border-radius: 12px; padding: 9px 14px; gap: 8px;
+      transition: border-color .3s, background .5s ease, box-shadow .3s;
+    }
+    .input-wrap:focus-within { border-color: var(--m); }
+
+    #chat-input {
+      flex:1; border:none; background:transparent; resize:none;
+      font-family:inherit; font-size:.9rem; color:var(--ink);
+      line-height:1.5; min-height:22px; max-height:120px; outline:none;
+    }
+    #chat-input::placeholder { color:var(--sub); }
+
+    .send-btn {
+      width:38px; height:38px; border-radius:10px; border:none;
+      background:var(--m); color:#fff;
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer; flex-shrink:0; font-size:1.05rem;
+      transition:transform .13s, background .5s ease;
+    }
+    .send-btn:hover  { transform:scale(1.07); }
+    .send-btn:active { transform:scale(.94); }
+
+    /* ══════════════════════════════════════════
+       QUOTE CAROUSEL (replaces empty state)
+    ══════════════════════════════════════════ */
+    .quote-carousel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quote-card {
+      max-width: 420px;
+      text-align: center;
+      position: absolute;
+      transition: opacity .7s ease, transform .7s ease;
+      opacity: 0;
+      transform: translateY(18px);
+      pointer-events: none;
+    }
+    .quote-card.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+      position: relative;
+    }
+    .quote-card.exit {
+      opacity: 0;
+      transform: translateY(-18px);
+    }
+
+    .quote-glyph {
+      font-size: 2.4rem;
+      margin-bottom: 20px;
+      display: block;
+      animation: floatGlyph 4s ease-in-out infinite;
+    }
+    @keyframes floatGlyph {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-8px); }
+    }
+
+    .quote-text {
+      font-family: 'Fraunces', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      line-height: 1.65;
+      color: var(--ink);
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+
+    .quote-author {
+      font-size: .78rem;
+      font-weight: 600;
+      color: var(--sub);
+      text-transform: uppercase;
+      letter-spacing: .07em;
+    }
+
+    /* dots */
+    .quote-dots {
+      position: absolute;
+      bottom: 28px;
+      display: flex;
+      gap: 7px;
+    }
+    .qdot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--line);
+      transition: background .3s, transform .3s;
+      cursor: pointer;
+    }
+    .qdot.on { background: var(--m); transform: scale(1.3); }
+
+    /* start-chat cta */
+    .quote-cta {
+      margin-top: 28px;
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 10px 22px; border-radius: 99px;
+      background: var(--m); color: #fff;
+      font-family: inherit; font-size: .85rem; font-weight: 600;
+      border: none; cursor: pointer;
+      transition: transform .14s, opacity .14s;
+      box-shadow: 0 4px 14px rgba(91,110,245,.3);
+    }
+    .quote-cta:hover  { transform: translateY(-2px); opacity:.9; }
+    .quote-cta:active { transform: translateY(0); }
+
+    /* ══════════════════════════════════════════
+       RIGHT SIDEBAR — DATA LOG
+    ══════════════════════════════════════════ */
+    .right-sidebar {
+      width: 0;
+      flex-shrink: 0;
+      overflow: hidden;
+      transition: width .32s cubic-bezier(.4,0,.2,1);
+      border-left: 0px solid var(--line);
+      background: var(--w);
+      display: flex; flex-direction: column;
+    }
+    .right-sidebar.open {
+      width: var(--rsw);
+      border-left-width: 1px;
+    }
+
+    .rs-inner {
+      width: var(--rsw);
+      height: 100%; display: flex; flex-direction: column; overflow: hidden;
+    }
+
+    .rs-head {
+      flex-shrink: 0; padding: 16px 18px 0;
+    }
+    .rs-head-h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.1rem; font-weight: 600;
+      letter-spacing: -.01em; margin-bottom: 12px;
+    }
+    .rs-tabs {
+      display: flex; gap: 5px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 14px;
+    }
+    .rs-tab {
+      flex:1; padding:7px; border-radius:8px;
+      border:1.5px solid var(--line);
+      font-family:inherit; font-size:.78rem; font-weight:600;
+      cursor:pointer; text-align:center; transition:all .17s;
+      background:transparent; color:var(--sub);
+    }
+    .rs-tab.am { background:var(--ml); border-color:var(--m); color:var(--m); }
+    .rs-tab.af { background:var(--fl); border-color:var(--f); color:var(--f); }
+    .rs-close-btn {
+      flex:0 0 auto; padding:7px 12px; border-radius:8px;
+      border:1.5px solid var(--line); background:transparent;
+      font-family:inherit; font-size:.78rem; font-weight:600;
+      color:var(--sub); cursor:pointer; transition:all .15s;
+    }
+    .rs-close-btn:hover { background:var(--bg); color:var(--ink); }
+
+    .rs-body {
+      flex:1; overflow-y:auto; padding:18px;
+    }
+    .rs-body::-webkit-scrollbar { width:4px; }
+    .rs-body::-webkit-scrollbar-thumb { background:var(--line); border-radius:99px; }
+
+    /* chips */
+    .stat-strip { display:flex; gap:9px; margin-bottom:14px; }
+    .stat-chip {
+      flex:1; padding:13px 8px; border-radius:11px;
+      text-align:center; border:1.5px solid transparent;
+    }
+    .stat-chip .sv { font-family:'Fraunces',serif; font-size:1.45rem; font-weight:700; line-height:1; }
+    .stat-chip .sl { font-size:.67rem; font-weight:600; color:var(--sub); text-transform:uppercase; letter-spacing:.04em; margin-top:4px; }
+    .sc-m  { background:var(--ml); border-color:var(--m); }
+    .sc-m  .sv { color:var(--m); }
+    .sc-f  { background:var(--fl); border-color:var(--f); }
+    .sc-f  .sv { color:var(--f); }
+    .sc-gd { background:#f0fdf4; border-color:#86efac; }
+    .sc-gd .sv { color:#16a34a; }
+    .sc-wn { background:#fffbeb; border-color:#fde68a; }
+    .sc-wn .sv { color:#d97706; }
+    .sc-bd { background:#fef2f2; border-color:#fca5a5; }
+    .sc-bd .sv { color:#dc2626; }
+
+    .sbadge {
+      display:inline-flex; align-items:center; gap:5px;
+      padding:5px 14px; border-radius:99px;
+      font-size:.8rem; font-weight:700; margin-bottom:14px;
+    }
+    .sbadge.slow   { background:#dcfce7; color:#166534; }
+    .sbadge.smed   { background:#fef9c3; color:#854d0e; }
+    .sbadge.shi    { background:#fee2e2; color:#991b1b; }
+
+    /* chart box */
+    .chart-box { background:var(--bg); border-radius:12px; padding:14px; margin-bottom:16px; }
+    .chart-box h4 { font-size:.72rem; font-weight:600; color:var(--sub); text-transform:uppercase; letter-spacing:.05em; margin-bottom:10px; }
+    .chart-box canvas { max-height:150px; }
+
+    /* breakdown */
+    .bkdwn { margin-bottom:16px; }
+    .bkdwn h4 { font-size:.72rem; font-weight:600; color:var(--sub); text-transform:uppercase; letter-spacing:.05em; margin-bottom:8px; }
+    .bk-row { margin-bottom:9px; }
+    .bk-head { display:flex; justify-content:space-between; margin-bottom:3px; }
+    .bk-name { font-size:.78rem; font-weight:600; color:var(--ink); }
+    .bk-pct  { font-size:.78rem; font-weight:700; color:var(--sub); }
+    .bar { height:6px; background:var(--line); border-radius:99px; overflow:hidden; }
+    .bar-fill { height:100%; border-radius:99px; width:0; transition:width .6s ease; }
+    .bar-fill.low    { background:linear-gradient(90deg,#22c55e,#4ade80); }
+    .bar-fill.medium { background:linear-gradient(90deg,#f59e0b,#fbbf24); }
+    .bar-fill.high   { background:linear-gradient(90deg,#ef4444,#f87171); }
+
+    /* summary */
+    .summary-box {
+      background:var(--bg); border-radius:12px; padding:14px;
+      border-left:3px solid var(--m); margin-bottom:16px;
+    }
+    .summary-box.fin { border-left-color:var(--f); }
+    .summary-box p { font-size:.85rem; line-height:1.65; color:var(--ink); }
+
+    /* interaction log in rs */
+    .sec-lbl { font-size:.72rem; font-weight:700; color:var(--sub); text-transform:uppercase; letter-spacing:.05em; margin-bottom:8px; }
+    .log-list { display:flex; flex-direction:column; gap:7px; }
+    .log-entry {
+      background:var(--bg); border-radius:10px; padding:11px 13px;
+      border:1.5px solid transparent; transition:border-color .17s;
+      animation:entryIn .26s ease both;
+    }
+    @keyframes entryIn { from{opacity:0;transform:translateY(7px)} to{opacity:1;transform:translateY(0)} }
+    .log-entry:hover { border-color:var(--line); }
+    .log-entry.le-m { border-left:3px solid var(--m); }
+    .log-entry.le-f { border-left:3px solid var(--f); }
+    .log-meta { display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; }
+    .log-cat  { font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; }
+    .log-cat.m { color:var(--m); }
+    .log-cat.f { color:var(--f); }
+    .log-time  { font-size:.68rem; color:var(--sub); }
+    .log-text  { font-size:.82rem; line-height:1.5; color:var(--ink); }
+    .log-pill  { display:inline-flex; align-items:center; gap:3px; font-size:.68rem; font-weight:700; margin-top:4px; padding:2px 8px; border-radius:99px; }
+    .lp-low  { background:#dcfce7; color:#166534; }
+    .lp-med  { background:#fef9c3; color:#854d0e; }
+    .lp-hi   { background:#fee2e2; color:#991b1b; }
+    .empty-log { font-size:.82rem; color:var(--sub); line-height:1.55; }
+
+    /* loading */
+    #rs-loading { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; height:200px; color:var(--sub); font-size:.88rem; }
+    .spin { width:28px; height:28px; border:3px solid var(--line); border-top-color:var(--m); border-radius:50%; animation:spin .7s linear infinite; }
+    @keyframes spin { to{transform:rotate(360deg)} }
+
+    /* crisis */
+    .crisis-banner { display:none; align-items:flex-start; gap:10px; background:#fef2f2; border:1.5px solid #fca5a5; border-radius:11px; padding:12px 14px; margin-bottom:16px; }
+    .crisis-banner.show { display:flex; }
+    .crisis-banner p { font-size:.82rem; line-height:1.5; color:#991b1b; }
+    .crisis-banner strong { display:block; margin-bottom:1px; }
+
+    /* ══════════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════════ */
+    @media (max-width:900px) {
+      :root { --rsw: 340px; }
+    }
+    @media (max-width:700px) {
+      :root { --rsw: 100vw; }
+      .right-sidebar.open { position:fixed; right:0; top:0; bottom:0; z-index:160; width:var(--rsw) !important; }
+    }
+    @media (max-width:480px) {
+      .tab-btn .btn-label { display:none; }
+      .tab-btn { padding:7px 9px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ TOP BAR ══ -->
+<div class="topbar">
+  <div class="topbar-logo" onclick="goHome()" style="cursor:pointer;" title="Home">bee<span>du</span></div>
+
+  <button class="tab-btn" id="btn-mental" onclick="openRightSidebar('mental')">
+    <div class="dot" style="background:var(--m)"></div>
+    <span class="btn-label">Mental Log</span>
+  </button>
+  <button class="tab-btn" id="btn-financial" onclick="openRightSidebar('financial')">
+    <div class="dot" style="background:var(--f)"></div>
+    <span class="btn-label">Financial Log</span>
+  </button>
+</div>
+
+<!-- ══ APP BODY ══ -->
+<div class="app-body">
+
+  <!-- ── LEFT SIDEBAR ── -->
+  <div class="left-sidebar" id="left-sidebar">
+
+    <!-- collapsed strip (visible when narrow) -->
+    <div class="ls-collapsed-icons">
+      <button class="ls-icon-btn new-ic" onclick="newChat()" title="New chat">✏️</button>
+      <button class="ls-icon-btn" title="History">🕐</button>
+    </div>
+
+    <!-- full panel (fades in on hover) -->
+    <div class="ls-full">
+      <div class="ls-head">
+        <div class="ls-head-row">
+          <span class="ls-title">Conversations</span>
+          <button class="new-chat-btn" onclick="newChat()">＋ New chat</button>
+        </div>
+        <div class="ls-search">
+          <span class="ls-search-icon">🔍</span>
+          <input type="text" id="search-input" placeholder="Search history…" oninput="filterSessions(this.value)"/>
+        </div>
+      </div>
+      <div class="session-list" id="session-list">
+        <!-- populated by JS -->
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── CHAT PANEL ── -->
+  <div class="chat-panel">
+
+    <!-- chat header -->
+    <div class="chat-header" id="chat-header" style="display:none">
+      <div style="flex:1">
+        <div class="chat-header-title" id="chat-header-title">New Conversation</div>
+        <div class="chat-header-sub" id="chat-header-sub">Today</div>
+      </div>
+      <span class="theme-pill" id="theme-pill"></span>
+    </div>
+
+    <!-- quote carousel (shown when no session is active) -->
+    <div id="quote-carousel" class="quote-carousel">
+      <div id="quote-display"></div>
+      <div class="quote-dots" id="quote-dots"></div>
+    </div>
+
+    <div class="chat-messages" id="chat-messages" style="display:none"></div>
+
+    <div class="disclaimer" id="disclaimer" style="display:none">
+      Beedu is a supportive companion, not a licensed therapist. In a crisis, call or text <strong>988</strong>.
+    </div>
+
+    <div class="chat-input-bar" id="chat-input-bar" style="display:none">
+      <div class="input-wrap">
+        <textarea id="chat-input" rows="1"
+          placeholder="Share what's on your mind…"
+          onkeydown="handleKey(event)"
+          oninput="autoResize(this)"></textarea>
+      </div>
+      <button class="send-btn" onclick="sendMessage()" title="Send">➤</button>
+    </div>
+  </div>
+
+  <!-- ── RIGHT SIDEBAR — DATA LOG ── -->
+  <div class="right-sidebar" id="right-sidebar">
+    <div class="rs-inner">
+      <div class="rs-head">
+        <div class="rs-head-h2" id="rs-title">Progress Log</div>
+        <div class="rs-tabs">
+          <button class="rs-tab" id="rlt-m" onclick="switchRightLog('mental')">🧠 Mental</button>
+          <button class="rs-tab" id="rlt-f" onclick="switchRightLog('financial')">💰 Financial</button>
+          <button class="rs-close-btn" onclick="closeRightSidebar()">✕ Close</button>
+        </div>
+      </div>
+      <div class="rs-body">
+        <div id="rs-loading"><div class="spin"></div><span>Loading…</span></div>
+        <div id="rs-content" style="display:none"></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- .app-body -->
+
+
+<script>
+/* ════════════════════════════════════════════════════
+   MOCK DATA
+════════════════════════════════════════════════════ */
+const MOCK = {
+  overall:{ total_sessions:24, sessions_with_stress:16, stress_percentage:66.7 },
+  mental_stress:{
+    current_level:5.2, status:"medium", recent_trend:"improving", trend_percentage:-18,
+    history:[
+      {date:"2026-02-03",level:8},{date:"2026-02-04",level:7},{date:"2026-02-05",level:6},
+      {date:"2026-02-06",level:8},{date:"2026-02-07",level:7},{date:"2026-02-08",level:6},
+      {date:"2026-02-09",level:5},{date:"2026-02-10",level:7},{date:"2026-02-11",level:6},
+      {date:"2026-02-12",level:5},{date:"2026-02-13",level:4},{date:"2026-02-14",level:4},
+      {date:"2026-02-15",level:5},{date:"2026-02-16",level:4}
+    ],
+    breakdown:{ low_percentage:25, medium_percentage:50, high_percentage:25 },
+    summary:"Your mental stress has been moderate but showing positive improvement. Keep practicing those breathing exercises! 🌟"
+  },
+  financial_stress:{
+    current_level:7.4, status:"high", recent_trend:"stable", trend_percentage:0,
+    history:[
+      {date:"2026-02-03",level:8},{date:"2026-02-04",level:7},{date:"2026-02-05",level:8},
+      {date:"2026-02-06",level:7},{date:"2026-02-07",level:8},{date:"2026-02-08",level:7},
+      {date:"2026-02-09",level:8},{date:"2026-02-10",level:7},{date:"2026-02-11",level:6},
+      {date:"2026-02-12",level:8},{date:"2026-02-13",level:7},{date:"2026-02-14",level:6},
+      {date:"2026-02-15",level:7},{date:"2026-02-16",level:7}
+    ],
+    breakdown:{ low_percentage:0, medium_percentage:35, high_percentage:65 },
+    summary:"Your financial stress remains high. Let's connect you with financial counseling resources! 💙"
+  },
+  crisis_count:0
+};
+
+/* ════════════════════════════════════════════════════
+   CALMING QUOTES CAROUSEL
+════════════════════════════════════════════════════ */
+const QUOTES = [
+  { text: "You don't have to control your thoughts. You just have to stop letting them control you.", author: "Dan Millman", glyph: "🌊" },
+  { text: "Almost everything will work again if you unplug it for a few minutes — including you.", author: "Anne Lamott", glyph: "🌿" },
+  { text: "You are allowed to be both a masterpiece and a work in progress simultaneously.", author: "Sophia Bush", glyph: "🌸" },
+  { text: "Breathe. It's just a bad day, not a bad life.", author: "Unknown", glyph: "☁️" },
+  { text: "Be gentle with yourself. You are a child of the universe, no less than the trees and the stars.", author: "Max Ehrmann", glyph: "✨" },
+  { text: "The present moment is the only moment available to us, and it is the door to all moments.", author: "Thich Nhat Hanh", glyph: "🍃" },
+  { text: "You are enough. A thousand times enough.", author: "Unknown", glyph: "💙" },
+  { text: "In the middle of difficulty lies opportunity.", author: "Albert Einstein", glyph: "🌅" },
+  { text: "Not all storms come to disrupt your life. Some come to clear your path.", author: "Unknown", glyph: "🌈" },
+  { text: "One small crack does not mean that you are broken. It means that you were put to the test and you didn't fall apart.", author: "Linda Poindexter", glyph: "🪨" },
+  { text: "Financial peace isn't the acquisition of stuff. It's learning to live on less than you make.", author: "Dave Ramsey", glyph: "💰" },
+  { text: "Do not anticipate trouble, or worry about what may never happen. Keep in the sunlight.", author: "Benjamin Franklin", glyph: "☀️" },
+];
+
+let quoteIdx   = 0;
+let quoteTimer = null;
+
+function initCarousel() {
+  const display = document.getElementById('quote-display');
+  const dots    = document.getElementById('quote-dots');
+  if (!display || !dots) return;
+
+  // build dot indicators
+  dots.innerHTML = QUOTES.map((_,i) =>
+    `<div class="qdot ${i===0?'on':''}" onclick="goToQuote(${i})"></div>`
+  ).join('');
+
+  showQuote(0, false);
+  quoteTimer = setInterval(() => nextQuote(), 6000);
+}
+
+function showQuote(idx, animate=true) {
+  quoteIdx = (idx + QUOTES.length) % QUOTES.length;
+  const q  = QUOTES[quoteIdx];
+  const display = document.getElementById('quote-display');
+  if (!display) return;
+
+  // update dots
+  document.querySelectorAll('.qdot').forEach((d,i) => d.classList.toggle('on', i===quoteIdx));
+
+  if (!animate) {
+    display.innerHTML = quoteCardHTML(q);
+    const card = display.querySelector('.quote-card');
+    requestAnimationFrame(()=> card && card.classList.add('active'));
+    return;
+  }
+
+  // fade out existing
+  const existing = display.querySelector('.quote-card');
+  if (existing) {
+    existing.classList.remove('active');
+    existing.classList.add('exit');
+    setTimeout(()=>{
+      display.innerHTML = quoteCardHTML(q);
+      requestAnimationFrame(()=>{
+        const card = display.querySelector('.quote-card');
+        requestAnimationFrame(()=> card && card.classList.add('active'));
+      });
+    }, 350);
+  } else {
+    display.innerHTML = quoteCardHTML(q);
+    requestAnimationFrame(()=>{
+      const card = display.querySelector('.quote-card');
+      requestAnimationFrame(()=> card && card.classList.add('active'));
+    });
+  }
+}
+
+function quoteCardHTML(q) {
+  return `
+    <div class="quote-card">
+      <span class="quote-glyph">${q.glyph}</span>
+      <p class="quote-text">"${q.text}"</p>
+      <span class="quote-author">— ${q.author}</span>
+      <br>
+      <button class="quote-cta" onclick="startChatFromQuote()">✏️ Start a Conversation with Beedu</button>
+    </div>`;
+}
+
+function nextQuote()         { showQuote(quoteIdx + 1); }
+function goToQuote(i)        { clearInterval(quoteTimer); showQuote(i); quoteTimer = setInterval(nextQuote, 6000); }
+function startChatFromQuote(){ newChat(); document.getElementById('chat-input').focus(); }
+
+function goHome() {
+  // deselect active session
+  activeId = null;
+  setChatTheme(null);
+
+  // clear active highlight in sidebar
+  document.querySelectorAll('.session-item').forEach(el => el.classList.remove('active'));
+
+  // hide chat, show quote carousel
+  document.getElementById('chat-header').style.display     = 'none';
+  document.getElementById('chat-messages').style.display   = 'none';
+  document.getElementById('disclaimer').style.display      = 'none';
+  document.getElementById('chat-input-bar').style.display  = 'none';
+  showCarousel();
+
+  // restart the auto-rotation from a fresh random quote
+  clearInterval(quoteTimer);
+  showQuote(Math.floor(Math.random() * QUOTES.length), true);
+  quoteTimer = setInterval(nextQuote, 6000);
+}
+
+function showCarousel() {
+  document.getElementById('quote-carousel').style.display = 'flex';
+}
+function hideCarousel() {
+  document.getElementById('quote-carousel').style.display = 'none';
+}
+
+
+let appData    = null;
+let dataReady  = false;
+let chartInst  = null;
+
+let sessions   = [];     // { id, name, preview, icon, type, time, messages:[] }
+let activeId   = null;   // currently open session id
+let rsType     = null;   // right sidebar type ('mental'|'financial')
+let clickLog   = [];     // interaction log entries
+
+const BOT_REPLIES = {
+  mental:[
+    { level:'high',   text:"I can hear how much weight you're carrying 🧡 Your feelings are valid. Would you like some grounding techniques, or just someone to listen?" },
+    { level:'medium', text:"That sounds really tough 💙 It takes courage to share. Have you tried any breathing exercises or short walks today?" },
+    { level:'low',    text:"Wonderful that you're checking in — even good days are worth tracking! Keep nurturing that headspace. 🌱" }
+  ],
+  financial:[
+    { level:'high',   text:"Financial stress is exhausting 💸 You're not alone. Would you like to explore budgeting strategies or support resources?" },
+    { level:'medium', text:"Managing money worries is hard. Small consistent steps make a big difference — want to talk through some options? 📊" },
+    { level:'low',    text:"Great that your finances feel more stable! Staying aware is a superpower 🌟 Let me know if anything shifts." }
+  ]
+};
+
+const M_KEYS = ['stress','anxiety','anxious','overwhelm','panic','worry','mental','sleep','tired','depress','sad','mood','emotion','feel','burnout','nervous'];
+const F_KEYS = ['money','financial','debt','bill','rent','mortgage','loan','salary','job','income','expense','budget','afford','bank','credit'];
+
+/* ════════════════════════════════════════════════════
+   SEED DEMO SESSIONS (so history looks populated)
+════════════════════════════════════════════════════ */
+(function seedDemoSessions(){
+  const demos = [
+    {
+      id:'s1', name:'Work anxiety this week', icon:'🧠', type:'mental',
+      time:'Today, 9:41 AM', preview:'Feeling really overwhelmed with deadlines…',
+      messages:[
+        {role:'user', text:'Feeling really overwhelmed with deadlines this week, can\'t sleep properly'},
+        {role:'bot',  text:'I can hear how much weight you\'re carrying 🧡 Your feelings are valid. Would you like some grounding techniques, or just someone to listen?', cat:'mental'},
+        {role:'user', text:'I just need to vent I think'},
+        {role:'bot',  text:'Of course — I\'m here. Tell me everything. Sometimes just putting it into words helps lighten the load. 💙', cat:'mental'}
+      ]
+    },
+    {
+      id:'s2', name:'Rent increase worries', icon:'💰', type:'financial',
+      time:'Yesterday, 7:15 PM', preview:'My landlord just raised the rent again…',
+      messages:[
+        {role:'user', text:'My landlord just raised the rent again, I can\'t afford this'},
+        {role:'bot',  text:'Financial stress is exhausting 💸 You\'re not alone. Would you like to explore budgeting strategies or support resources?', cat:'financial'},
+        {role:'user', text:'Yes please, what can I do?'},
+        {role:'bot',  text:'Let\'s start with your current income vs. fixed expenses. Sometimes finding even one area to reduce spend creates breathing room. Want to walk through it together? 📊', cat:'financial'}
+      ]
+    },
+    {
+      id:'s3', name:'Morning check-in', icon:'🐝', type:'mental',
+      time:'Feb 15, 8:02 AM', preview:'Feeling okay today, just a bit tired',
+      messages:[
+        {role:'user', text:'Feeling okay today, just a bit tired from the weekend'},
+        {role:'bot',  text:'Wonderful that you\'re checking in — even good days are worth tracking! Keep nurturing that headspace. 🌱', cat:'mental'}
+      ]
+    },
+    {
+      id:'s4', name:'Budget planning session', icon:'💰', type:'financial',
+      time:'Feb 14, 3:30 PM', preview:'I want to start saving but don\'t know how',
+      messages:[
+        {role:'user', text:'I want to start saving but don\'t know where to begin, my budget is a mess'},
+        {role:'bot',  text:'Managing money worries is hard. Small consistent steps make a big difference — want to talk through some options? 📊', cat:'financial'},
+        {role:'user', text:'Yes that would help a lot'},
+        {role:'bot',  text:'Great! Let\'s try the 50/30/20 rule as a starting framework: 50% needs, 30% wants, 20% savings. Does that feel workable with your income? 🌟', cat:'financial'}
+      ]
+    },
+    {
+      id:'s5', name:'Panic attack aftermath', icon:'🧠', type:'mental',
+      time:'Feb 12, 11:45 PM', preview:'Had a really bad panic attack tonight',
+      messages:[
+        {role:'user', text:'Had a really bad panic attack tonight, very scared'},
+        {role:'bot',  text:'I\'m so glad you reached out 💙 First: you\'re safe right now. Try breathing in for 4 counts, hold 4, out 4. I\'m right here with you.', cat:'mental'},
+        {role:'user', text:'okay that helps a bit thank you'},
+        {role:'bot',  text:'You\'re doing great. One breath at a time 🧡 If these become frequent, talking to a mental health professional can really help — you deserve that support.', cat:'mental'}
+      ]
+    }
+  ];
+  sessions = demos;
+})();
+
+/* ════════════════════════════════════════════════════
+   LEFT SIDEBAR — SESSION LIST
+════════════════════════════════════════════════════ */
+function renderSessionList(filter='') {
+  const list = document.getElementById('session-list');
+  const f    = filter.toLowerCase();
+
+  const groups = {
+    'Today':     sessions.filter(s=>s.time.startsWith('Today') && (!f||s.name.toLowerCase().includes(f)||s.preview.toLowerCase().includes(f))),
+    'Yesterday': sessions.filter(s=>s.time.startsWith('Yesterday') && (!f||s.name.toLowerCase().includes(f)||s.preview.toLowerCase().includes(f))),
+    'Earlier':   sessions.filter(s=>!s.time.startsWith('Today')&&!s.time.startsWith('Yesterday') && (!f||s.name.toLowerCase().includes(f)||s.preview.toLowerCase().includes(f)))
+  };
+
+  let html = '';
+  for (const [label, items] of Object.entries(groups)) {
+    if (!items.length) continue;
+    html += `<div class="session-group-label">${label}</div>`;
+    items.forEach(s => {
+      const iconCls = s.type==='mental'?'si-mental':s.type==='financial'?'si-financial':'si-mixed';
+      html += `
+        <div class="session-item ${s.id===activeId?'active':''}" onclick="loadSession('${s.id}')" id="si-${s.id}">
+          <div class="session-icon ${iconCls}">${s.icon}</div>
+          <div class="session-info">
+            <div class="session-name">${esc(s.name)}</div>
+            <div class="session-preview">${esc(s.preview)}</div>
+          </div>
+          <span class="session-time">${s.time.includes(',') ? s.time.split(',')[1].trim() : s.time}</span>
+          <button class="session-del" onclick="deleteSession(event,'${s.id}')" title="Delete">✕</button>
+        </div>`;
+    });
+  }
+
+  if (!html) html = `<p style="padding:20px 10px;font-size:.82rem;color:var(--sub)">No conversations found.</p>`;
+  list.innerHTML = html;
+}
+
+function filterSessions(val) { renderSessionList(val); }
+
+function loadSession(id) {
+  activeId = id;
+  const s  = sessions.find(x=>x.id===id);
+  if (!s) return;
+
+  // update active highlight
+  document.querySelectorAll('.session-item').forEach(el=>el.classList.remove('active'));
+  const el = document.getElementById(`si-${id}`);
+  if (el) el.classList.add('active');
+
+  // show chat header
+  const hdr = document.getElementById('chat-header');
+  hdr.style.display = 'flex';
+  document.getElementById('chat-header-title').textContent = s.name;
+  document.getElementById('chat-header-sub').textContent   = s.time;
+
+  // apply theme based on session type
+  setChatTheme(s.type === 'mixed' ? null : s.type);
+
+  // hide carousel, show chat
+  hideCarousel();
+  document.getElementById('chat-messages').style.display   = 'flex';
+  document.getElementById('disclaimer').style.display      = 'block';
+  document.getElementById('chat-input-bar').style.display  = 'flex';
+
+  // populate messages
+  const feed = document.getElementById('chat-messages');
+  feed.innerHTML = '';
+  s.messages.forEach(m => appendMsgEl(m.role, m.text, m.cat||null, false));
+  feed.scrollTop = feed.scrollHeight;
+}
+
+function newChat() {
+  const id  = 's' + Date.now();
+  const now = new Date();
+  const timeStr = 'Today, ' + now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+  const s = { id, name:'New conversation', icon:'🐝', type:'mixed', time:timeStr, preview:'', messages:[] };
+  sessions.unshift(s);
+  renderSessionList(document.getElementById('search-input').value);
+  loadSession(id);
+  setChatTheme(null);
+  document.getElementById('chat-input').focus();
+}
+
+function deleteSession(e, id) {
+  e.stopPropagation();
+  sessions = sessions.filter(s=>s.id!==id);
+  if (activeId===id) {
+    activeId = null;
+    setChatTheme(null);
+    document.getElementById('chat-header').style.display    = 'none';
+    showCarousel();
+    document.getElementById('chat-messages').style.display = 'none';
+    document.getElementById('disclaimer').style.display    = 'none';
+    document.getElementById('chat-input-bar').style.display= 'none';
+  }
+  renderSessionList(document.getElementById('search-input').value);
+}
+
+/* ════════════════════════════════════════════════════
+   CHAT THEME SWITCHER
+════════════════════════════════════════════════════ */
+let currentTheme = null;
+
+function setChatTheme(type) {
+  if (currentTheme === type) return;
+  currentTheme = type;
+
+  const panel = document.querySelector('.chat-panel');
+  panel.classList.remove('theme-mental', 'theme-financial');
+  if (type) panel.classList.add(`theme-${type}`);
+
+  const pill = document.getElementById('theme-pill');
+  if (!pill) return;
+
+  // reset animation
+  pill.classList.remove('show');
+  void pill.offsetWidth; // reflow
+
+  if (type === 'mental') {
+    pill.className = 'theme-pill mental';
+    pill.textContent = '🧠 Mental health mode';
+  } else if (type === 'financial') {
+    pill.className = 'theme-pill financial';
+    pill.textContent = '💰 Financial mode';
+  } else {
+    pill.textContent = '';
+    return;
+  }
+  requestAnimationFrame(() => pill.classList.add('show'));
+}
+
+/* ════════════════════════════════════════════════════
+   CHAT LOGIC
+════════════════════════════════════════════════════ */
+function detectCategory(txt) {
+  const t = txt.toLowerCase();
+  const m = M_KEYS.filter(k=>t.includes(k)).length;
+  const f = F_KEYS.filter(k=>t.includes(k)).length;
+  if (f>m) return 'financial';
+  if (m>0) return 'mental';
+  return Math.random()>.5?'mental':'financial';
+}
+function detectLevel(txt) {
+  const t  = txt.toLowerCase();
+  const hi = ['very','extremely','terrible','horrible','severe','cant','cannot','breaking','overwhelmed','desperate','crisis','worst','unbearable','scared','panic'];
+  const lo = ['ok','okay','fine','good','great','calm','better','alright','peaceful','relaxed','happy'];
+  if (hi.some(k=>t.includes(k))) return 'high';
+  if (lo.some(k=>t.includes(k))) return 'low';
+  return 'medium';
+}
+
+function sendMessage() {
+  const input = document.getElementById('chat-input');
+  const text  = input.value.trim();
+  if (!text) return;
+
+  // create session if none active
+  if (!activeId) newChat();
+
+  appendMsgEl('user', text, null, true);
+  input.value = ''; input.style.height='';
+
+  const cat   = detectCategory(text);
+  const level = detectLevel(text);
+
+  // switch chat theme to reflect detected category
+  setChatTheme(cat);
+
+  // update session metadata
+  const s = sessions.find(x=>x.id===activeId);
+  if (s) {
+    s.messages.push({role:'user',text});
+    if (s.preview==='') s.preview = text.slice(0,60);
+    if (s.name==='New conversation') {
+      s.name = text.length>35 ? text.slice(0,35)+'…' : text;
+      document.getElementById('chat-header-title').textContent = s.name;
+    }
+    s.type = s.type==='mixed' ? cat : (s.type===cat ? cat : 'mixed');
+    s.icon = s.type==='mental'?'🧠':s.type==='financial'?'💰':'🐝';
+    renderSessionList(document.getElementById('search-input').value);
+  }
+
+  // click log
+  addLog(cat, 'chat', text.length>90?text.slice(0,90)+'…':text, level);
+
+  const typId = showTyping();
+  setTimeout(()=>{
+    removeTyping(typId);
+    const pool  = BOT_REPLIES[cat];
+    const match = pool.find(r=>r.level===level)||pool[1];
+    appendMsgEl('bot', match.text, cat, true);
+    if (s) s.messages.push({role:'bot',text:match.text,cat});
+    if (rsType===cat) refreshLogList(cat);
+  }, 1000 + Math.random()*700);
+}
+
+function appendMsgEl(role, text, cat=null, animate=true) {
+  const feed = document.getElementById('chat-messages');
+  const row  = document.createElement('div');
+  row.className = `msg-row ${role}` + (animate?'':' no-anim');
+  if (!animate) row.style.animation='none';
+
+  const av  = document.createElement('div');
+  av.className   = role==='bot' ? 'avatar bee' : 'avatar user-av';
+  av.textContent = role==='bot' ? '🐝' : 'You';
+
+  const bub = document.createElement('div');
+  bub.className = `bubble ${role==='bot'?'bot':'user'}`;
+
+  if (cat && role==='bot') {
+    const tag = document.createElement('div');
+    tag.className = `btag ${cat}`;
+    tag.textContent = cat==='mental'?'🧠 Mental':'💰 Financial';
+    bub.appendChild(tag);
+  }
+  const sp = document.createElement('span');
+  sp.innerHTML = esc(text).replace(/\n/g,'<br>');
+  bub.appendChild(sp);
+
+  if (role==='bot') row.append(av, bub); else row.append(bub, av);
+  feed.appendChild(row);
+  feed.scrollTop = feed.scrollHeight;
+}
+
+let typN=0;
+function showTyping(){
+  const id   = `t${++typN}`;
+  const feed = document.getElementById('chat-messages');
+  const row  = document.createElement('div');
+  row.id=id; row.className='msg-row bot';
+  row.innerHTML=`<div class="avatar bee">🐝</div><div class="bubble bot"><div class="typing"><span></span><span></span><span></span></div></div>`;
+  feed.appendChild(row); feed.scrollTop=feed.scrollHeight;
+  return id;
+}
+function removeTyping(id){ const e=document.getElementById(id); if(e)e.remove(); }
+
+function handleKey(e){ if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();} }
+function autoResize(el){ el.style.height=''; el.style.height=Math.min(el.scrollHeight,120)+'px'; }
+
+/* ════════════════════════════════════════════════════
+   RIGHT SIDEBAR
+════════════════════════════════════════════════════ */
+async function ensureData(){
+  if(dataReady) return;
+  try { const r=await fetch('/stats-detailed'); if(!r.ok)throw 0; appData=await r.json(); }
+  catch(_){ appData=MOCK; }
+  dataReady=true;
+}
+
+async function openRightSidebar(type){
+  if(rsType===type){ closeRightSidebar(); return; }
+  rsType=type;
+  document.getElementById('right-sidebar').classList.add('open');
+  syncRsTabs();
+  await renderRsSidebar(type);
+  addLog(type,'tab_open','Opened '+cap(type)+' log panel');
+}
+function closeRightSidebar(){
+  rsType=null;
+  document.getElementById('right-sidebar').classList.remove('open');
+  syncRsTabs();
+}
+function switchRightLog(type){
+  if(rsType===type) return;
+  rsType=type;
+  syncRsTabs();
+  renderRsSidebar(type);
+}
+function syncRsTabs(){
+  document.getElementById('btn-mental').className    = 'tab-btn'+(rsType==='mental'   ?' am':'');
+  document.getElementById('btn-financial').className = 'tab-btn'+(rsType==='financial'?' af':'');
+  document.getElementById('rlt-m').className = 'rs-tab'+(rsType==='mental'   ?' am':'');
+  document.getElementById('rlt-f').className = 'rs-tab'+(rsType==='financial'?' af':'');
+}
+
+async function renderRsSidebar(type){
+  const ldEl  = document.getElementById('rs-loading');
+  const ctEl  = document.getElementById('rs-content');
+  ldEl.style.display='flex'; ctEl.style.display='none';
+
+  await ensureData();
+  if(chartInst){chartInst.destroy();chartInst=null;}
+
+  const d      = type==='mental'?appData.mental_stress:appData.financial_stress;
+  const color  = type==='mental'?'#5b6ef5':'#f0900a';
+  const bgRgba = type==='mental'?'rgba(91,110,245,0.1)':'rgba(240,144,10,0.1)';
+  const isFin  = type==='financial';
+
+  const tMap = {improving:['sc-gd','↘','Improving'],stable:['sc-wn','→','Stable'],worsening:['sc-bd','↗','Worsening']};
+  const [tCls,tIcon,tWord] = tMap[d.recent_trend]||tMap.stable;
+  const pStr = d.trend_percentage===0?'':` (${d.trend_percentage>0?'+':''}${d.trend_percentage}%)`;
+  const sEmoji = {low:'✅',medium:'⚠️',high:'🔴'}[d.status]||'⚠️';
+  const sCls   = {low:'slow',medium:'smed',high:'shi'}[d.status]||'smed';
+
+  const logs = clickLog.filter(l=>l.type===type).slice().reverse();
+  const logHTML = logs.length===0
+    ? `<p class="empty-log">Chat with Beedu to populate this log.</p>`
+    : logs.map(e=>`
+        <div class="log-entry ${isFin?'le-f':'le-m'}">
+          <div class="log-meta">
+            <span class="log-cat ${isFin?'f':'m'}">${isFin?'💰 Financial':'🧠 Mental'}</span>
+            <span class="log-time">${e.time}</span>
+          </div>
+          <div class="log-text">${esc(e.text)}</div>
+          <span class="log-pill ${e.level==='high'?'lp-hi':e.level==='low'?'lp-low':'lp-med'}">${lvlE(e.level)} ${cap(e.level)}</span>
+        </div>`).join('');
+
+  ctEl.innerHTML=`
+    <div class="crisis-banner ${appData.crisis_count>0?'show':''}">
+      <span style="font-size:1.3rem">🚨</span>
+      <p><strong>Crisis Detected: ${appData.crisis_count}</strong>Call or Text <strong>988</strong> immediately.</p>
+    </div>
+
+    <div class="stat-strip">
+      <div class="stat-chip ${isFin?'sc-f':'sc-m'}">
+        <div class="sv">${d.current_level}</div><div class="sl">Level</div>
+      </div>
+      <div class="stat-chip ${tCls}">
+        <div class="sv">${tIcon}</div><div class="sl">${tWord}${pStr}</div>
+      </div>
+    </div>
+
+    <span class="sbadge ${sCls}">${sEmoji} ${d.status.toUpperCase()} (${d.current_level}/10)</span>
+
+    <div class="chart-box">
+      <h4>Stress — Last 14 Days</h4>
+      <canvas id="rs-chart"></canvas>
+    </div>
+
+    <div class="bkdwn">
+      <h4>Breakdown</h4>
+      ${['low','medium','high'].map((lv,i)=>{
+        const lbls=['✅ Low (0–3)','⚠️ Medium (4–6)','🔴 High (7–10)'];
+        const pcts=[d.breakdown.low_percentage,d.breakdown.medium_percentage,d.breakdown.high_percentage];
+        return `<div class="bk-row">
+          <div class="bk-head"><span class="bk-name">${lbls[i]}</span><span class="bk-pct">${pcts[i]}%</span></div>
+          <div class="bar"><div class="bar-fill ${lv}" data-w="${pcts[i]}"></div></div>
+        </div>`;
+      }).join('')}
+    </div>
+
+    <div class="summary-box ${isFin?'fin':''}">
+      <p>${esc(d.summary)}</p>
+    </div>
+
+    <div class="sec-lbl">Interaction Log</div>
+    <div class="log-list" id="log-list">${logHTML}</div>
+  `;
+
+  ldEl.style.display='none'; ctEl.style.display='block';
+
+  requestAnimationFrame(()=>{
+    ctEl.querySelectorAll('.bar-fill[data-w]').forEach(el=>{ el.style.width=el.dataset.w+'%'; });
+  });
+
+  const ctx=document.getElementById('rs-chart').getContext('2d');
+  chartInst=new Chart(ctx,{
+    type:'line',
+    data:{
+      labels:d.history.map(h=>new Date(h.date).toLocaleDateString('en-US',{month:'short',day:'numeric'})),
+      datasets:[{
+        data:d.history.map(h=>h.level),
+        borderColor:color, backgroundColor:bgRgba,
+        tension:.4, fill:true,
+        pointRadius:3, pointHoverRadius:5,
+        pointBackgroundColor:color, pointBorderColor:'#fff', pointBorderWidth:2
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      scales:{
+        y:{beginAtZero:true,max:10,ticks:{stepSize:2,font:{size:9}},grid:{color:'rgba(0,0,0,.04)'},border:{display:false}},
+        x:{ticks:{font:{size:9},maxRotation:0},grid:{display:false},border:{display:false}}
+      },
+      plugins:{
+        legend:{display:false},
+        tooltip:{backgroundColor:'rgba(15,15,16,.88)',padding:9,cornerRadius:8,callbacks:{label:c=>`Level: ${c.parsed.y}/10`}}
+      }
+    }
+  });
+}
+
+function refreshLogList(type){
+  const list=document.getElementById('log-list');
+  if(!list) return;
+  const isFin=type==='financial';
+  const logs=clickLog.filter(l=>l.type===type).slice().reverse();
+  list.innerHTML=logs.length===0
+    ?`<p class="empty-log">Chat with Beedu to populate this log.</p>`
+    :logs.map(e=>`
+        <div class="log-entry ${isFin?'le-f':'le-m'}">
+          <div class="log-meta">
+            <span class="log-cat ${isFin?'f':'m'}">${isFin?'💰 Financial':'🧠 Mental'}</span>
+            <span class="log-time">${e.time}</span>
+          </div>
+          <div class="log-text">${esc(e.text)}</div>
+          <span class="log-pill ${e.level==='high'?'lp-hi':e.level==='low'?'lp-low':'lp-med'}">${lvlE(e.level)} ${cap(e.level)}</span>
+        </div>`).join('');
+}
+
+/* ════════════════════════════════════════════════════
+   CLICK LOG
+════════════════════════════════════════════════════ */
+function addLog(type,action,text='',level='medium'){
+  const now=new Date();
+  const time=now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+  clickLog.push({type,action,text,level,time});
+}
+
+/* ════════════════════════════════════════════════════
+   HELPERS
+════════════════════════════════════════════════════ */
+function cap(s)  { return s.charAt(0).toUpperCase()+s.slice(1); }
+function lvlE(l) { return {low:'✅',medium:'⚠️',high:'🔴'}[l]||'⚠️'; }
+function esc(s)  { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+/* ════════════════════════════════════════════════════
+   INIT
+════════════════════════════════════════════════════ */
+renderSessionList();
+initCarousel();
+
+</script>
+</body>
+</html>

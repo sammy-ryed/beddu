@@ -269,15 +269,28 @@ class MemoryManager:
             if self._handle_memory_delete(user_input, user_lower):
                 return
         
-        # Detect name mentions
-        if any(phrase in user_lower for phrase in ["my name is", "i'm ", "i am ", "call me"]):
-            words = user_input.split()
-            for i, word in enumerate(words):
-                if word.lower() in ["is", "am", "i'm", "me"] and i + 1 < len(words):
-                    potential_name = words[i + 1].strip('.,!?')
-                    if potential_name and potential_name[0].isupper() and len(potential_name) > 1:
-                        self.add_permanent_fact(f"User's name is {potential_name}", "identity")
-                        break
+        # Detect name mentions - ALWAYS try to update first
+        if any(phrase in user_lower for phrase in ["my name is", "i'm ", "i am ", "call me", "name=", "name ="]):
+            # Handle "name= X" format
+            if "name=" in user_lower or "name =" in user_lower:
+                name_part = user_input.split("=")[-1].strip()
+                if name_part:
+                    potential_name = name_part.split()[0].strip('.,!?')
+                    if potential_name:
+                        # Try to update first, if no existing name, add it
+                        if not self.update_permanent_fact("name", f"User's name is {potential_name}", "identity"):
+                            self.add_permanent_fact(f"User's name is {potential_name}", "identity")
+            else:
+                # Standard "my name is X" format
+                words = user_input.split()
+                for i, word in enumerate(words):
+                    if word.lower() in ["is", "am", "i'm", "me"] and i + 1 < len(words):
+                        potential_name = words[i + 1].strip('.,!?')
+                        if potential_name and potential_name[0].isupper() and len(potential_name) > 1:
+                            # Try to update first, if no existing name, add it
+                            if not self.update_permanent_fact("name", f"User's name is {potential_name}", "identity"):
+                                self.add_permanent_fact(f"User's name is {potential_name}", "identity")
+                            break
         
         # Detect occupation
         if any(phrase in user_lower for phrase in ["i work as", "i'm a ", "my job is", "i do ", "working as"]):

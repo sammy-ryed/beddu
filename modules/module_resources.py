@@ -163,7 +163,7 @@ class ResourceManager:
         
         # Add coping strategies for moderate+ stress
         if stress_level >= 4:
-            result['coping_strategies'] = self._get_relevant_coping_strategies(stress_data)
+            result['coping_strategies'] = self._get_relevant_coping_strategies(stress_data, financial_data)
         
         # Add severity message
         if stress_level >= 7:
@@ -171,12 +171,17 @@ class ResourceManager:
         
         return result
     
-    def _get_relevant_coping_strategies(self, stress_data: Dict) -> List[Dict]:
+    def _get_relevant_coping_strategies(self, stress_data: Dict, financial_data: Dict = None) -> List[Dict]:
         """Select most relevant coping strategies based on stress type."""
         keywords = stress_data.get('keywords_found', [])
         phrases = stress_data.get('phrases_found', [])
         
         selected = []
+        
+        # PRIORITY: Financial stress gets financial coping strategies
+        if financial_data and financial_data.get('has_financial_stress'):
+            selected.extend(self.coping_strategies.get('financial_coping', [])[:2])
+            return selected[:2]  # Return immediately with financial tips
         
         # Anxiety/panic gets breathing + grounding
         if any(word in keywords for word in ['anxious', 'panic', 'overwhelm']):
@@ -208,15 +213,13 @@ class ResourceManager:
         """
         crisis_hotlines = self.crisis_resources.get('crisis_hotlines', [])
         
-        message = "🚨 I'm really concerned. Please reach out right now:\n\n"
+        message = "🚨 **IMMEDIATE HELP AVAILABLE 24/7:**\n\n"
         
-        for resource in crisis_hotlines[:3]:  # Top 3 most critical
-            message += f"• {resource['name']}: {resource['contact']}"
-            if resource.get('available') == '24/7':
-                message += " (24/7)"
-            message += "\n"
+        for resource in crisis_hotlines[:2]:  # Top 2 most critical
+            message += f"📞 **{resource['name']}**\n"
+            message += f"   {resource['contact']}\n\n"
         
-        message += "\nYou don't have to face this alone. These are confidential and free."
+        message += "💬 These services are confidential and free. You don't have to face this alone."
         
         return message
     
@@ -228,12 +231,14 @@ class ResourceManager:
             str: Crisis hotline information (concise)
         """
         crisis_hotlines = self.crisis_resources.get('crisis_hotlines', [])
-        message = "🚨 CRISIS RESOURCES:\n"
+        message = "🚨 **IMMEDIATE HELP AVAILABLE 24/7:**\n\n"
         
-        # Show 988 and Crisis Text Line (most accessible)
+        # Show top 2 hotlines
         for resource in crisis_hotlines[:2]:
-            message += f"• {resource['name']}: {resource['contact']}\n"
+            message += f"📞 **{resource['name']}**\n"
+            message += f"   {resource['contact']}\n\n"
         
+        message += "💬 These services are confidential and free.\n"
         return message.rstrip()
     
     def format_resources_for_display(self, resources: Dict) -> str:
@@ -251,11 +256,8 @@ class ResourceManager:
         
         output = []
         
-        # Crisis resources
-        if 'crisis' in resources:
-            output.append("\n🚨 CRISIS RESOURCES:")
-            for r in resources['crisis'][:2]:
-                output.append(f"• {r['name']}: {r['contact']}")
+        # Skip crisis resources here (already shown by get_crisis_header)
+        # Crisis resources are handled separately to avoid duplication
         
         # Coping strategies (most immediate) - make them collapsible
         if 'coping_strategies' in resources:

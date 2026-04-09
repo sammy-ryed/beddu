@@ -16,3 +16,4 @@ python-dotenv           # Load environment variables from a .env file
 numpy                   # Numerical operations
 joblib                  # Efficient serialization
 flask                   # Web framework for UI
+flask-cors              # CORS support for Next.js frontend

@@ -209,5 +209,48 @@
       "instructions": "1. Pick a random word (like 'BEDTIME')\n2. For each letter, think of words starting with that letter\n3. Visualize each word for 3-5 seconds\n4. B: boat, banana, bird... E: elephant, egg...\n5. Continue until you fall asleep",
       "why_it_works": "Occupies your mind with meaningless content, preventing worry thoughts"
     }
+  ],
+  
+  "financial_coping": [
+    {
+      "name": "The 3-Step Clarity Method",
+      "category": "Financial",
+      "duration": "15 minutes",
+      "difficulty": "Easy",
+      "best_for": ["EMI stress", "debt worries", "financial overwhelm", "money anxiety"],
+      "instructions": "1. Write down EXACTLY what you owe this month (₹ amount)\n2. Write down what income you have coming in\n3. List 3 possible solutions even if they feel small:\n   • Contact lender for payment extension\n   • Negotiate due date\n   • Ask family/friend for help\n   • Skip a non-essential expense",
+      "why_it_works": "Seeing the actual numbers (not the fear) makes the problem concrete and solvable",
+      "tips": "Don't judge yourself while writing. This is problem-solving, not blame."
+    },
+    {
+      "name": "The One Call Method",
+      "category": "Financial",
+      "duration": "One phone call",
+      "difficulty": "Easy",
+      "best_for": ["EMI payments", "late payments", "missed deadlines"],
+      "instructions": "1. Call your bank/lender BEFORE you miss payment\n2. Say: 'I'm facing temporary difficulty, what options do I have?'\n3. Ask about: payment extension, restructuring, grace period\n4. Take notes on what they offer",
+      "why_it_works": "Banks prefer working with you over legal action. Early contact = more options",
+      "reality_check": "Most lenders have hardship programs you don't know about"
+    },
+    {
+      "name": "Emergency Expense Audit",
+      "category": "Financial",
+      "duration": "30 minutes",
+      "difficulty": "Moderate",
+      "best_for": ["tight budget", "no savings", "month-end stress"],
+      "instructions": "For the next 7 days:\n1. Track EVERY expense (even ₹10 for tea)\n2. Mark each as: Essential or Can Wait\n3. At day 7, add up 'Can Wait' column\n4. That's money you can redirect this month",
+      "why_it_works": "Small expenses add up fast. Awareness = control",
+      "common_surprises": "Food delivery, recharges, impulse buys often total ₹2000-4000/month"
+    },
+    {
+      "name": "The 50-Rupee Rule",
+      "category": "Financial",
+      "duration": "Ongoing",
+      "difficulty": "Easy",
+      "best_for": ["no savings", "paycheck to paycheck", "building buffer"],
+      "instructions": "Every time you choose NOT to buy something:\n1. Note the amount you saved\n2. Move that exact amount to a separate account/envelope\n3. Examples: Skipped ₹80 tea = ₹80 saved. Cooked instead of ordered = ₹250 saved\n4. Watch it add up over a month",
+      "why_it_works": "Makes saving feel achievable. You're rewarding smart choices, not punishing yourself",
+      "motivation": "₹50/day = ₹1500/month. That's an EMI payment or emergency buffer"
+    }
   ]
 }

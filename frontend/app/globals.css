@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+/* Clean, minimal styling - no AI vibes */
+body {
+  color: #171717; /* neutral-900 */
+  background-color: #fafafa; /* neutral-50 */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar - subtle */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d4d4d4; /* neutral-300 */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a3a3a3; /* neutral-400 */
+}
+
+/* Smooth transitions */
+* {
+  transition-property: color, background-color, border-color;
+  transition-duration: 150ms;
+  transition-timing-function: ease-in-out;
+}
+
+/* Focus styles that match the design */
+input:focus,
+textarea:focus,
+button:focus {
+  outline: 2px solid #171717; /* neutral-900 */
+  outline-offset: 2px;
+}
